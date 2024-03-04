@@ -1,0 +1,264 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+    --section-grid-gap: {{ section.settings.grid_horizontal }}px;
+  }
+</style>
+
+<div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}{% if section.settings.enable_twin %} section--plain{% endif %}">
+  <div class="relative z-1">
+    {%- capture marquee -%}
+      <div class="marquee flex items-center flex-auto whitespace-nowrap">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'text' -%}
+              <div class="scrolling-text__item with-text{% if block.settings.stencil_text %} with-stencil{% endif %} flex items-center flex-auto {{ block.settings.text_font }} tracking-heading" style="--font-size: {{ block.settings.text_size }}px;" {{ block.shopify_attributes }}>
+                {{- block.settings.text -}}
+              </div>
+            {%- when 'image' -%}
+              {%- liquid
+                assign image_height = block.settings.height
+                assign image_height_2x = block.settings.height | times: 2
+              -%}
+              <div class="scrolling-text__item with-media flex items-center flex-auto media media--transparent relative" style="--image-height: {{ image_height }}px;" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  <img
+                    srcset="{{ block.settings.image | image_url: height: image_height }} 1x, {{ block.settings.image | image_url: height: image_height_2x }} 2x"
+                    src="{{ block.settings.image | image_url: height: image_height }}"
+                    alt="{{ block.settings.image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ image_height | times: block.settings.image.aspect_ratio }}"
+                    height="{{ image_height }}"
+                    is="lazy-image"
+                  />
+                {%- else -%}
+                  {{- 'logo' | placeholder_svg_tag: 'placeholder' -}}
+                {%- endif -%}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endcapture -%}
+
+    {%- if section.settings.enable_twin -%}
+      {%- liquid
+        assign direction = section.settings.direction
+        if direction == 'left'
+          assign reversed = 'right'
+        else
+          assign reversed = 'left'
+        endif
+      -%}
+      <div class="scrolling-wrapper with-{{ direction }} relative z-1">
+        <marquee-element class="scrolling-text scrolling-text--{{ direction }} flex items-center" data-speed="{{ section.settings.speed }}" data-direction="{{ direction }}"{% if section.settings.enable_parallax %} data-parallax="1.5"{% endif %}>
+          {{- marquee -}}
+        </marquee-element>
+      </div>
+      <div class="scrolling-wrapper with-{{ direction }} relative">
+        <marquee-element class="scrolling-text scrolling-text--{{ reversed }} flex items-center" data-speed="{{ section.settings.speed }}" data-direction="{{ reversed }}"{% if section.settings.enable_parallax %} data-parallax="1.5"{% endif %}>
+          {{- marquee -}}
+        </marquee-element>
+      </div>
+    {%- else -%}
+      <marquee-element class="scrolling-text scrolling-text--{{ section.settings.direction }} flex items-center" data-speed="{{ section.settings.speed }}" data-direction="{{ section.settings.direction }}"{% if section.settings.enable_parallax %} data-parallax="1.5"{% endif %}>
+        {{- marquee -}}
+      </marquee-element>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.scrolling-text.name",
+  "class": "scrolling-text-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.scrolling-text.settings.direction.options__1.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.scrolling-text.settings.direction.options__2.label"
+        }
+      ],
+      "default": "left",
+      "label": "t:sections.scrolling-text.settings.direction.label"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 0.5,
+      "max": 2.5,
+      "step": 0.1,
+      "label": "t:sections.scrolling-text.settings.speed.label",
+      "unit": "t:sections.scrolling-text.settings.speed.unit",
+      "default": 1.6
+    },
+    {
+      "type": "range",
+      "id": "grid_horizontal",
+      "min": 50,
+      "max": 200,
+      "step": 5,
+      "default": 70,
+      "unit": "px",
+      "label": "t:sections.scrolling-text.settings.grid_horizontal.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_twin",
+      "label": "t:sections.scrolling-text.settings.enable_twin.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "label": "t:sections.global.settings.enable_parallax.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__colors.content",
+      "info": "t:sections.global.settings.header__colors.info"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "t:sections.global.settings.color_text.label"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "t:sections.global.settings.color_background.label"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_background",
+      "label": "t:sections.global.settings.gradient_background.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__section.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 36
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.global.settings.divider.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded",
+      "default": false,
+      "label": "t:sections.global.settings.rounded.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "t:sections.global.blocks.text.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "Welcome to our store",
+          "label": "t:sections.global.settings.text.label"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "default": 160,
+          "min": 12,
+          "max": 180,
+          "step": 2,
+          "unit": "px",
+          "label": "t:sections.global.settings.text_size.label"
+        },
+        {
+          "type": "select",
+          "id": "text_font",
+          "options": [
+            {
+              "value": "body",
+              "label": "t:sections.global.settings.text_font.options__1.label"
+            },
+            {
+              "value": "heading",
+              "label": "t:sections.global.settings.text_font.options__2.label"
+            }
+          ],
+          "default": "body",
+          "label": "t:sections.global.settings.text_font.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "stencil_text",
+          "label": "t:sections.scrolling-text.blocks.text.settings.stencil_text.label",
+          "info": "t:sections.scrolling-text.blocks.text.settings.stencil_text.info",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "t:sections.global.blocks.image.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.global.settings.image.label"
+        },
+        {
+          "type": "range",
+          "id": "height",
+          "min": 0,
+          "max": 200,
+          "step": 4,
+          "default": 80,
+          "unit": "px",
+          "label": "t:sections.scrolling-text.blocks.image.settings.image_height.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.scrolling-text.presets.name",
+      "blocks": [
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["custom.overlay"]
+  }
+}
+{% endschema %}

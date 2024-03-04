@@ -1,0 +1,47 @@
+{%- liquid
+  assign gang_option_name = ''
+  assign gang_media_active = false
+  assign gang_connect = ''
+  if media.alt contains '#' and hide_variants == false
+    assign gang_connect = media.alt | split: '#' | last
+    if gang_connect contains '_'
+      assign gang_exist = true
+      assign gang_option_name = gang_connect | split: '_' | first | handleize
+
+      for option_name in product.options
+        assign option_name_handlized = option_name | handleize | replace: '_', '-'
+        if option_name_handlized == gang_option_name
+          assign option_key = 'option' | append: forloop.index
+          assign current_option_value = product.selected_or_first_available_variant[option_key] | handleize
+          assign current_connect = option_name_handlized | append: '_' | append: current_option_value
+          if gang_connect == current_connect
+            assign gang_media_active = true
+          endif
+          break
+        endif
+      endfor
+    endif
+  endif
+
+  if gang_exist == true
+    assign media_alt = media.alt | split: '#' | first
+  else
+    assign media_alt = media.alt
+  endif
+-%}
+
+<div class="product__media card media media--{{ image_ratio }} mobile:media--{{ image_ratio_mobile }} flex w-full flex-auto relative overflow-hidden
+  {%- if gallery_layout == 'scroll' and media.id == featured_media.id %} xl:hidden{% endif -%}
+  {%- if hide_variants and variant_images contains media.src %} product__media--variant{% endif -%}"
+  data-media-type="{{ media.media_type }}"
+  data-media-id="{{ media.id }}"
+  {%- if gang_exist == true %} data-gang-option="{{ gang_option_name }}" data-gang-connect="{{ gang_connect }}"{% unless gang_media_active == true %} hidden{% endunless %}{% endif -%}
+>
+  {%- render 'media', section_id: section_id, media: media, media_alt: media_alt, sizes: sizes, preload: preload, autoplay: autoplay, loop: loop -%}
+
+  {%- if image_zoom != 'none' and media.media_type == 'image' -%}
+    <button type="button" class="absolute top-0 left-0 w-full h-full flex items-center justify-center" is="media-{{ image_zoom }}-button" aria-label="{{ 'products.media.open_media' | t: index: media.position | escape }}" tabindex="-1">
+      {%- render 'icon', icon: 'zoom', size: 'xs', class: 'lg:hidden' -%}
+    </button>
+  {%- endif -%}
+</div>

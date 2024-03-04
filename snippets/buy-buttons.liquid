@@ -1,0 +1,108 @@
+{% comment %}
+  Renders product buy-buttons.
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} product form id.
+  - section_id: {String} id of section to which this snippet belongs.
+
+  Usage:
+  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id %}
+{% endcomment %}
+
+<div class="product-form-wrapper" {{ block.shopify_attributes }}>
+  {%- liquid
+    assign gift_card_recipient_feature_active = false
+    if block.settings.show_gift_card_recipient and product.gift_card?
+      assign gift_card_recipient_feature_active = true
+    endif
+
+    assign show_dynamic_checkout = false
+    if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
+      assign show_dynamic_checkout = true
+    endif
+  -%}
+  {%- form 'product',
+    product,
+    id: product_form_id,
+    novalidate: 'novalidate',
+    data-type: 'add-to-cart-form',
+    data-hide-errors: gift_card_recipient_feature_active,
+    class: 'product-form grid gap-8',
+    is: 'product-form'
+  -%}
+    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled />
+
+    {%- liquid
+      if gift_card_recipient_feature_active
+        render 'gift-card-recipient-form', product: product, form: form, section_id: section_id
+      endif
+
+      assign check_against_inventory = true
+      if product.selected_or_first_available_variant.inventory_management != 'shopify' or  product.selected_or_first_available_variant.inventory_policy == 'continue'
+        assign check_against_inventory = false
+      endif
+      if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+        assign quantity_rule_soldout = true
+      endif
+    -%}
+
+    <div class="product-form__buttons grid gap-4">
+      <div class="product-form__error-message alert alert--error text-sm font-medium leading-tight" role="alert" hidden></div>
+      <div class="flex gap-4">
+        {%- if block.settings.show_quantity_selector -%}
+          <label for="Quantity2-{{ section_id }}" class="label sr-only">{{ 'products.quantity.label' | t }}</label>
+          <quantity-selector class="quantity-selector inline-flex flex-auto">
+            <button type="button" name="minus" class="quantity-button" aria-label="{{ 'products.quantity.decrease' | t: product: product.title | escape }}">
+              {%- render 'icon', icon: 'chevron-left', size: 'sm', class: 'stroke-2 transform' -%}
+            </button>
+            <input
+              id="Quantity2-{{ section_id }}"
+              class="quantity-input text-sm sm:text-base font-medium text-center"
+              type="text"
+              value="1"
+              min="1"
+              name="quantity"
+              size="2"
+              inputmode="numeric"
+              autocomplete="off"
+              is="quantity-input"
+            />
+            <button type="button" name="plus" class="quantity-button" aria-label="{{ 'products.quantity.increase' | t: product: product.title | escape }}">
+              {%- render 'icon', icon: 'chevron-right', size: 'sm', class: 'stroke-2 transform' -%}
+            </button>
+          </quantity-selector>
+        {%- endif -%}
+        
+        <button
+          type="submit"
+          name="add"
+          form="{{ product_form_id }}"
+          class="product-form__submit button button--primary button--fixed w-full"
+          is="hover-button"
+          {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %} disabled{% endif -%}
+          {%- if product.template_suffix == 'pre-order' %} data-pre-order="true"{% endif -%}
+        >
+          <span class="btn-fill" data-fill></span>
+          <span class="btn-text">
+            {%- liquid
+              if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
+                echo 'products.product.sold_out' | t
+              elsif product.template_suffix != 'pre-order'
+                echo 'products.product.add_to_cart' | t
+              else
+                echo 'products.product.pre_order' | t
+              endif
+            -%}
+          </span>
+        </button>
+      </div>
+
+      {%- liquid
+        if show_dynamic_checkout
+          echo form | payment_button
+        endif
+      -%}
+    </div>
+  {%- endform -%}
+</div>

@@ -1,0 +1,71 @@
+{%- if section.settings.heading != blank or section.settings.subheading != blank or section.settings.description != blank or section.settings.button_label != blank -%}
+  <div class="title-wrapper{% if section.settings.heading_size == 'title-xl' %} title-wrapper-lg{% endif %} leading-none gap-4 lg:gap-8 flex flex-col {{ section.settings.heading_alignment }} md:justify-between relative z-1">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank or section.settings.description != blank -%}
+      <div class="grid gap-4">
+        {%- if section.settings.subheading != blank -%}
+          {%- liquid
+            if section.settings.heading_size == 'title-sm'
+              assign subtext_size = 'subtext-md'
+            else
+              assign subtext_size = 'subtext-lg'
+            endif
+          -%}
+          <p class="heading font-medium {{ subtext_size }} leading-none tracking-none">
+            {{- section.settings.subheading | escape -}}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <{{ section.settings.heading_tag }} class="heading font-bold {{ section.settings.heading_size }}">
+            {%- if section.settings.highlighted_text == 'none' -%}
+              <split-words class="split-words flex flex-wrap" data-animate="fade-up-large">{{ section.settings.heading }}</split-words>
+            {%- else -%}
+              {%- liquid
+                assign withGradient = false
+                if section.settings.gradient_highlight != blank and section.settings.gradient_highlight != 'rgba(0,0,0,0)'
+                  assign withGradient = true
+                endif
+              -%}
+              {%- render 'highlighted-text', content: section.settings.heading, style: section.settings.highlighted_text, scribble: section.settings.highlighted_scribble, gradient: withGradient -%}
+            {%- endif -%}
+          </{{ section.settings.heading_tag }}>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          {%- liquid
+            if section.settings.heading_size == 'title-sm'
+              assign subtext_size = 'subtext-sm'
+            elsif section.settings.heading_size == 'title-md'
+              assign subtext_size = 'subtext-md'
+            else
+              assign subtext_size = 'subtext-lg'
+            endif
+          -%}
+          <div class="page-width--narrow rte leading-normal {{ subtext_size }}">
+            {{- section.settings.description -}}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <p>
+        <a class="button button--secondary icon-with-text"{% if section.settings.button_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ section.settings.button_link }}"{% endif %} is="hover-link">
+          <span class="btn-fill" data-fill></span>
+          <span class="btn-text">
+            {%- liquid
+              echo section.settings.button_label | escape
+              render 'icon', icon: 'arrow-right', size: 'sm', class: 'transform'
+            -%}
+          </span>
+        </a>
+      </p>
+    {%- endif -%}
+
+    {%- liquid
+      if section_button != blank
+        echo section_button
+      endif
+    -%}
+  </div>
+{%- endif -%}

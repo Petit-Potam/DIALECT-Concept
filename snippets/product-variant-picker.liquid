@@ -1,0 +1,236 @@
+{% comment %}
+  Renders product variant-picker
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  - section_id: {String} id of section to which this snippet belongs.
+  - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
+  Usage:
+  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+
+{%- unless product.has_only_default_variant -%}
+  {%- if block.settings.picker_type == 'button' -%}
+    <variant-radios
+      class="variant-picker grid gap-5 no-js-hidden"
+      form="{{ product_form_id }}"
+      data-section="{{ section_id }}"
+      data-url="{{ product.url }}"
+      data-update-url="{{ update_url }}"
+      {{ block.shopify_attributes }}
+    >
+      {%- for option in product.options_with_values -%}
+        {%- liquid
+          assign is_color = false
+          if block.settings.enable_color_swatches
+            assign swatch_file_extension = 'png'
+            assign swatch_trigger = 'products.general.color_swatch_trigger' | t | downcase
+            assign downcased_option = option.name | downcase
+            if downcased_option contains swatch_trigger
+              assign is_color = true
+            elsif swatch_trigger == 'color' and downcased_option contains 'colour'
+              assign is_color = true
+            endif
+          endif
+
+          assign is_size = false
+          if block.settings.size_chart != blank
+            assign size_trigger = 'products.general.size_trigger' | t | downcase
+            assign downcased_option = option.name | downcase
+            if downcased_option contains size_trigger
+              assign is_size = true
+            endif
+          endif
+
+          assign option_idx0 = forloop.index0
+        -%}
+        <fieldset class="js product-form__input variant-input-wrapper"
+          data-option-index="option{{ forloop.index }}"
+          data-option-slug="{{ option.name | handleize }}"
+        >
+          <legend class="sr-only">{{ option.name }}</legend>
+					<div class="form__label flex items-center justify-between gap-2 w-full">
+						{%- if block.settings.show_variant_labels -%}
+							<div class="flex gap-2">
+								{{- option.name -}}:
+								<span class="font-medium" id="{{ section_id }}-option{{ option.position }}">{{ option.selected_value }}</span>
+							</div>
+						{%- endif -%}
+						{%- if is_size -%}
+              <div class="flex items-center gap-2">
+								{%- render 'icon', icon: 'ruler', size: 'xs', class: 'stroke-1' -%}
+								<a class="link text-sm leading-tight cursor-pointer" href="{{ block.settings.size_chart.url }}">
+                  {{- 'products.general.size_chart' | t -}}
+                </a>
+							</div>
+						{%- endif -%}
+					</div>
+					<ul class="swatches swatches--{{ settings.rounded_swatch }}{% if block.settings.color_swatch_type == 'variant' %} swatches--variant{% endif %} flex items-center flex-wrap gap-4">
+						{%- for value in option.values -%}
+							<li>
+								<magnet-element class="block">
+									<input
+										type="radio"
+										class="sr-only"
+										id="{{ section_id }}-{{ option.name | handle }}-{{ forloop.index0 }}"
+										name="{{ option.name }}"
+										value="{{ value | escape }}"
+										form="{{ product_form_id }}"
+										{% if option.selected_value == value %}checked{% endif %}
+										data-option-value="{{ value | escape }}"
+									/>
+									{%- if is_color -%}
+										{%- liquid
+											assign file_extension = swatch_file_extension | default: 'png'
+											assign file_name = value | handle | append: '.' | append: file_extension
+											assign swatch_fallback = value | split: ' ' | last | handle
+
+											assign value_downcase = value | downcase
+											assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
+											for swatch in swatch_config
+												assign swatch_parts = swatch | strip | split: ':'
+												assign swatch_name = swatch_parts.first | downcase | strip
+
+												if swatch_name == value_downcase
+													assign swatch_value = swatch_parts.last | strip
+													if swatch_value contains '#'
+														assign swatch_fallback = swatch_value
+													else
+														assign file_name = swatch_value
+													endif
+													break
+												endif
+											endfor
+
+                      assign swatch_image = blank
+											if images[file_name] != blank
+												assign swatch_image = images[file_name] | image_url: width: 72
+                      elsif file_name contains '//cdn.shopify.com/'
+                        assign swatch_image = file_name
+											endif
+
+                      if block.settings.color_swatch_type == 'variant'
+                        for variant in product.variants
+                          assign variant_value = variant.options[option_idx0]
+                          if variant_value contains value and variant.image
+                            assign swatch_image = variant.image | image_url: width: 144
+                            break
+                          endif
+                        endfor
+                      endif
+										-%}
+										<label
+											for="{{ section_id }}-{{ option.name | handle }}-{{ forloop.index0 }}"
+											class="color-swatch relative"
+											title="{{ value | escape }}"
+											style="--swatch-background: {{ swatch_fallback }};{% if swatch_image != blank %} background-image: url({{ swatch_image }});{% endif %}"
+										>
+											<span class="tooltip opacity-0 pointer-events-none text-sm rounded-full z-10">{{ value | escape }}</span>
+										</label>
+									{%- else -%}
+										<label
+											for="{{ section_id }}-{{ option.name | handle }}-{{ forloop.index0 }}"
+											class="label-swatch text-sm font-medium leading-none cursor-pointer relative"
+											title="{{ value | escape }}"
+										>
+											{{- value -}}
+										</label>
+									{%- endif -%}
+								</magnet-element>
+							</li>
+						{%- endfor -%}
+					</ul>
+        </fieldset>
+      {%- endfor -%}
+
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-radios>
+  {%- else -%}
+    <variant-selects
+      class="variant-picker grid gap-5 no-js-hidden"
+      form="{{ product_form_id }}"
+      data-section="{{ section_id }}"
+      data-url="{{ product.url }}"
+      {%- if update_url == false %} data-update-url="false"{% endif -%}
+      {{ block.shopify_attributes }}
+    >
+      {%- for option in product.options_with_values -%}
+        {%- liquid
+          assign is_size = false
+          if block.settings.size_chart != blank
+            assign size_trigger = 'products.general.size_trigger' | t | downcase
+            assign downcased_option = option.name | downcase
+            if downcased_option contains size_trigger
+              assign is_size = true
+            endif
+          endif
+        -%}
+        <div class="product-form__input product-form__input--dropdown variant-input-wrapper"
+          data-option-index="option{{ forloop.index }}"
+          data-option-slug="{{ option.name | handleize }}"
+        >
+					<div class="form__label flex items-center justify-between gap-2 w-full">
+						{%- if block.settings.show_variant_labels -%}
+							<label class="flex gap-2" for="Option-{{ section_id }}-{{ forloop.index0 }}">
+								{{- option.name -}}
+							</label>
+						{%- endif -%}
+						{%- if is_size -%}
+							<div class="flex items-center gap-2">
+								{%- render 'icon', icon: 'ruler', size: 'xs', class: 'stroke-1' -%}
+								<a class="link text-sm leading-tight cursor-pointer" href="{{ block.settings.size_chart.url }}">
+                  {{- 'products.general.size_chart' | t -}}
+                </a>
+							</div>
+						{%- endif -%}
+					</div>
+          <div class="field">
+            <select id="Option-{{ section_id }}-{{ forloop.index0 }}"
+              class="select"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+							is="custom-select"
+            >
+              {%- for value in option.values -%}
+                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                  {{ value }}
+                </option>
+              {%- endfor -%}
+            </select>
+            {%- render 'icon', icon: 'chevron-up', size: 'sm', class: 'absolute' -%}
+          </div>
+        </div>
+      {%- endfor -%}
+
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-selects>
+  {%- endif -%}
+{%- endunless -%}
+
+<noscript>
+  <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
+    <label class="form__label flex gap-2" for="Variants-{{ section_id }}">{{ 'products.product.product_variants' | t }}</label>
+    <div class="field">
+      <select name="id" id="Variants-{{ section_id }}" class="select" form="{{ product_form_id }}">
+        {%- for variant in product.variants -%}
+          <option
+            {% if variant == product.selected_or_first_available_variant %}selected{% endif %}
+            {% if variant.available == false %}disabled{% endif %}
+            value="{{ variant.id }}"
+          >
+            {{ variant.title }}
+            {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+            - {{ variant.price | money | strip_html }}
+          </option>
+        {%- endfor -%}
+      </select>
+      {%- render 'icon', icon: 'chevron-up', size: 'sm', class: 'absolute' -%}
+    </div>
+  </div>
+</noscript>

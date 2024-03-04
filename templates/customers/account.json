@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main-account": {
+      "type": "main-account",
+      "settings": {
+        "heading_size": "title-xl tracking-heading",
+        "padding_top": 72,
+        "padding_bottom": 100,
+        "rounded": false
+      }
+    }
+  },
+  "order": [
+    "main-account"
+  ]
+}

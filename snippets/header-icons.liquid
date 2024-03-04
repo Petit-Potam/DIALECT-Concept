@@ -1,0 +1,62 @@
+{%- comment -%}
+  Renders a header menu icons component
+
+  Accepts:
+  - section: {Object}
+  - show_account: {Boolean}
+  - show_cart: {Boolean}
+  - show_hamburger: {Boolean}
+  - show_search: {Boolean}
+  - dir: {String}
+
+  Usage:
+  {% render 'header-icons', section: section %}
+{%- endcomment -%}
+
+<div class="header__icons header__icons--{{ dir }} flex justify-{{ dir }} z-1">
+  <div class="header__buttons flex items-center gap-1d5">
+    {%- if show_toggle -%}
+      <button class="menu-toggle-button hidden lg:flex items-center justify-center" type="button" is="menu-toogle" aria-controls="MenuToggle" aria-expanded="false">
+        <span class="sr-only">{{ 'general.drawers.navigation' | t }}</span>
+        {%- render 'icon', icon: 'hamburger', size: 'lg' -%}
+      </button>
+    {%- endif -%}
+
+    {%- if show_search and settings.enable_search -%}
+      <a href="{{ routes.search_url }}" class="search-drawer-button flex items-center justify-center" is="magnet-link" aria-controls="SearchDrawer" aria-expanded="false" >
+        <span class="sr-only">{{ 'general.search.title' | t }}</span>
+        {%- render 'icon', icon: 'search', size: 'lg' -%}
+      </a>
+    {%- endif -%}
+
+    {%- if show_account and shop.customer_accounts_enabled -%}
+      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="hidden lg:flex items-center justify-center" is="magnet-link">
+        <span class="sr-only">
+          {%- liquid
+            if customer
+              echo 'customer.account.title' | t
+            else
+              echo 'customer.login.title' | t
+            endif
+          -%}
+        </span>
+        {%- render 'icon', icon: 'account', size: 'lg' -%}
+      </a>
+    {%- endif -%}
+
+    {%- if show_cart -%}
+      <a href="{{ routes.cart_url }}" class="cart-drawer-button flex items-center justify-center relative" is="magnet-link" aria-controls="CartDrawer" aria-expanded="false" data-no-instant>
+        <span class="sr-only">{{ 'general.cart.title' | t }}</span>
+        {%- render 'icon', icon: 'cart', size: 'lg' -%}
+        <cart-count class="count absolute top-0 right-0 text-xs" aria-label="{{ 'general.cart.cart_count' | t: count: cart.item_count | escape }}"{% if cart == empty %} hidden{% endif %}>{{ cart.item_count }}</cart-count>
+      </a>
+    {%- endif -%}
+
+    {%- if show_hamburger -%}
+      <button class="menu-drawer-button flex items-center justify-center" type="button" is="magnet-button" aria-controls="MenuDrawer" aria-expanded="false">
+        <span class="sr-only">{{ 'general.drawers.navigation' | t }}</span>
+        {%- render 'icon', icon: 'hamburger', size: 'lg' -%}
+      </button>
+    {%- endif -%}
+  </div>
+</div>
