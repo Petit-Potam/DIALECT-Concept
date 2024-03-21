@@ -1,0 +1,18 @@
+<div class="product-card__inspired-by">
+    <p>Inspired by <br>
+    {% case product.metafields.custom.inspiration_brand %}
+        {% when 'Chanel' %}
+            
+        {% else %}
+        <b>
+            {% case product.metafields.custom.inspiration_brand | split:'' | last %}
+                {% when 's' %}
+                    {{ product.metafields.custom.inspiration_brand }}'
+                {% else %}
+                    {{ product.metafields.custom.inspiration_brand }}'s
+            {% endcase %}
+        </b>
+    {% endcase %}
+    <span>{{ product.metafields.custom.inspired_by_et_retail_price.value | split: '(' | first }}</span></p>
+    <p><span class="dialect__color-primary">(Retail Price: {{ product.metafields.pdp.retail_price | metafield_tag | split:' GBP'}})</span></p>
+</div>
