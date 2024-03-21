@@ -237,6 +237,9 @@
         </p>
         {%- render 'product-price', product: product, class: 'flex flex-wrap lg:flex-col lg:items-end gap-2 md:gap-1d5' -%}
       </div>
+      {% comment %}START Dialect Custom - Display product's inspiration on product card{% endcomment %}
+      {%  render 'cust__product-card__inspired-by', product: product %}
+      {% comment %}END Dialect Custom - Display product's inspiration on product card{% endcomment %}  
 
       {%- if show_color_swatches -%}
         {%- liquid
