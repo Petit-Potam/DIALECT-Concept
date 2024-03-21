@@ -42,6 +42,7 @@
     
     render 'css-variables'
     echo 'theme.css' | asset_url | stylesheet_tag: preload: true
+    echo 'dialect.css' | asset_url | stylesheet_tag: preload: true
     
     if text_direction == 'rtl'
       echo 'rtl.css' | asset_url | stylesheet_tag: preload: true
