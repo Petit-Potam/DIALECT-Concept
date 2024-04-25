@@ -182,6 +182,12 @@ Product card is the product block displayed on collections lists and sliders
   flex-wrap: wrap;
   width: 60%;
 }
+.product-card__media .badges.cust_badges-right {
+  flex-direction: row-reverse;
+  right: var(--sp-2);
+  left: auto;
+  width: 40%;
+}
 .product-card__media .badges .badge {
   padding: var(--sp-1) var(--sp-2);
   font-size: 0.7em;
