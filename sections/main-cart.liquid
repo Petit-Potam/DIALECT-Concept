@@ -63,7 +63,7 @@
         <div class="grow flex flex-col gap-8 md:gap-12">
           <form class="cart__form" action="{{ routes.cart_url }}" method="POST" id="cart">
             <cart-items class="cart__items block">
-              <table class="no-headings w-full">
+              <table role="table" class="no-headings w-full">
                 <caption class="sr-only">{{ 'cart.general.title' | t }}</caption>
                 <thead>
                   <tr>
@@ -148,7 +148,7 @@
                               </div>
                       
                               <div class="grid gap-1">
-                                <div class="price{% if item.original_price != item.final_price %} price--on-sale{% endif %} text-sm flex gap-1d5">
+                                <div class="price{% if item.original_price != item.final_price %} price--on-sale{% endif %} text-sm flex flex-wrap gap-1d5">
                                   {%- liquid
                                     assign money_price = item.original_price | money
                                     if settings.currency_code_enabled
@@ -196,7 +196,7 @@
                                 {%- if item.line_level_discount_allocations != blank -%}
                                   <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t | escape }}">
                                     {%- for discount_allocation in item.line_level_discount_allocations -%}
-                                      <li class="discounts__discount text-xs flex items-center gap-1">
+                                      <li class="discounts__discount text-xs flex flex-wrap items-center gap-1">
                                         <span class="badge badge--highlight flex items-center gap-1d5 font-medium leading-none rounded-full">{{ discount_allocation.discount_application.title }}</span>
                                         <span class="badge badge--onsale flex items-center gap-1d5 font-medium leading-none rounded-full">-{{ discount_allocation.amount | money }}</span>
                                       </li>
@@ -397,7 +397,7 @@
                       {%- if cart.cart_level_discount_applications.size > 0 -%}
                         <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t | escape }}">
                           {%- for discount in cart.cart_level_discount_applications -%}
-                            <li class="discounts__discount text-sm sm:text-base flex items-center justify-between gap-1d5">
+                            <li class="discounts__discount text-sm sm:text-base flex flex-wrap items-center justify-between gap-1d5">
                               {{- discount.title -}}
                               <span class="badge badge--onsale flex items-center gap-1d5 font-medium leading-none rounded-full">-{{ discount.total_allocated_amount | money }}</span>
                             </li>

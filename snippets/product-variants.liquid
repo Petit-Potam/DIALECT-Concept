@@ -53,9 +53,33 @@
         {%- if is_size -%}
           <div class="flex items-center gap-2">
             {%- render 'icon', icon: 'ruler', size: 'xs', class: 'stroke-1' -%}
-            <a class="link text-sm leading-tight cursor-pointer" href="{{ block.settings.size_chart.url }}">
+            <button type="button" class="link text-sm leading-tight cursor-pointer" aria-controls="SizeChart-{{ section_id }}" aria-expanded="false">
               {{- 'products.general.size_chart' | t -}}
-            </a>
+            </button>
+            <x-modal id="SizeChart-{{ section_id }}" class="x-modal drawer z-30 fixed bottom-0 left-0 h-full w-full pointer-events-none"
+              role="dialog"
+              aria-modal="true"
+              aria-label="{{ block.settings.size_chart.title | escape }}"
+              hidden
+            >
+              <overlay-element class="overlay fixed-modal invisible opacity-0 fixed bottom-0 left-0 w-full h-screen pointer-events-none" aria-controls="SizeChart-{{ section_id }}" aria-expanded="false"></overlay-element>
+              <div class="drawer__inner z-10 absolute top-0 flex flex-col w-full h-full overflow-hidden">
+                <gesture-element class="drawer__header flex items-center justify-between opacity-0 invisible relative">
+                  <span class="drawer__title heading font-bold title-md">{{ block.settings.size_chart.title | escape }}</span>
+                  <button class="button button--secondary button--close drawer__close hidden sm:flex items-center justify-center" type="button" is="hover-button" aria-controls="SizeChart-{{ section_id }}" aria-expanded="false" aria-label="{{ 'general.accessibility.close' | t | escape }}">
+                    <span class="btn-fill" data-fill></span>
+                    <span class="btn-text">
+                      {%- render 'icon', icon: 'close', size: 'sm' -%}
+                    </span>
+                  </button>
+                </gesture-element>
+                <div class="drawer__content opacity-0 invisible flex flex-col h-full grow shrink">
+                  <div class="drawer__scrollable relative flex flex-col gap-5 md:gap-7 grow shrink">
+                    <div class="rte text-base md:text-lg">{{ block.settings.size_chart.content }}</div>
+                  </div>
+                </div>
+              </div>
+            </x-modal>
           </div>
         {%- endif -%}
       </div>
@@ -78,34 +102,44 @@
                 {% if selected %}checked{% endif %}
                 tabindex="-1"
               />
-              {%- if is_color -%}
+              {%- if is_color or value.swatch != blank-%}
                 {%- liquid
-                  assign file_extension = swatch_file_extension | default: 'png'
-                  assign file_name = value | handle | append: '.' | append: file_extension
-                  assign swatch_fallback = value | split: ' ' | last | handle
-  
-                  assign value_downcase = value | downcase
-                  assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
-                  for swatch in swatch_config
-                    assign swatch_parts = swatch | strip | split: ':'
-                    assign swatch_name = swatch_parts.first | downcase | strip
-  
-                    if swatch_name == value_downcase
-                      assign swatch_value = swatch_parts.last | strip
-                      if swatch_value contains '#'
-                        assign swatch_fallback = swatch_value
-                      else
-                        assign file_name = swatch_value
+                  if value.swatch == blank
+                    assign file_extension = swatch_file_extension | default: 'png'
+                    assign file_name = value | handle | append: '.' | append: file_extension
+                    assign swatch_fallback = value | split: ' ' | last | handle
+    
+                    assign value_downcase = value | downcase
+                    assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
+                    for swatch in swatch_config
+                      assign swatch_parts = swatch | strip | split: ':'
+                      assign swatch_name = swatch_parts.first | downcase | strip
+    
+                      if swatch_name == value_downcase
+                        assign swatch_value = swatch_parts.last | strip
+                        if swatch_value contains '#'
+                          assign swatch_fallback = swatch_value
+                        else
+                          assign file_name = swatch_value
+                        endif
+                        break
                       endif
-                      break
+                    endfor
+    
+                    assign swatch_image = blank
+                    if images[file_name] != blank
+                      assign swatch_image = images[file_name] | image_url: width: 72
+                    elsif file_name contains '//cdn.shopify.com/'
+                      assign swatch_image = file_name
                     endif
-                  endfor
-  
-                  assign swatch_image = blank
-                  if images[file_name] != blank
-                    assign swatch_image = images[file_name] | image_url: width: 72
-                  elsif file_name contains '//cdn.shopify.com/'
-                    assign swatch_image = file_name
+                  else
+                    assign swatch_image = blank
+                    assign swatch_fallback = value | split: ' ' | last | handle
+                    if value.swatch.image
+                      assign swatch_image = value.swatch.image | image_url: width: 72
+                    elsif value.swatch.color
+                      assign swatch_fallback = value.swatch.color
+                    endif
                   endif
   
                   if block.settings.color_swatch_type == 'variant'

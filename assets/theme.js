@@ -1639,6 +1639,16 @@ class MenuDrawer extends DrawerElement {
       });
     }, 300);
   }
+
+  afterHide() {
+    super.afterHide();
+
+    setTimeout(() => {
+      this.querySelectorAll('details[is=menu-details]').forEach((subMenu) => {
+        subMenu.onCloseButtonClick();
+      });
+    });
+  }
 }
 customElements.define('menu-drawer', MenuDrawer);
 
@@ -1649,6 +1659,11 @@ class ShareDrawer extends DrawerElement {
 
   get menuItems() {
     return this._menuItems = this._menuItems || this.querySelectorAll('.share-buttons>li');
+  }
+
+  get urlToShare() {
+    const urlInput = this.querySelector('input[type=hidden]');
+    return urlInput ? urlInput.value : document.location.href;
   }
 
   connectedCallback() {
@@ -2533,7 +2548,13 @@ class DetailsDropdown extends HTMLDetailsElement {
 
   onSummaryClicked(event) {
     event.preventDefault();
-    this.open = !this.open;
+
+    if (!theme.config.isTouch && this.trigger === 'hover' && this.summaryElement.hasAttribute('data-link')) {
+      window.location.href = this.summaryElement.getAttribute('data-link');
+    }
+    else {
+      this.open = !this.open;
+    }
   }
 
   async transition(value) {
@@ -3470,6 +3491,10 @@ class SliderElement extends HTMLElement {
     this.scrollToPosition(this.scrollPosition, immediate);
   }
 
+  selected(selectedIndex) {
+    return this.itemsToShow[selectedIndex];
+  }
+
   scrollend() {
     this.hasPendingOnScroll = false;
     this.dispatchEventHandler();
@@ -4095,15 +4120,18 @@ class VariantSelects extends HTMLElement {
     productForms.forEach((productForm) => {
       const buyButton = productForm.querySelector('[name="add"]');
       const buyButtonText = productForm.querySelector('[name="add"] > .btn-text');
+      const buyButtonTextChild = productForm.querySelector('[name="add"] > .btn-text span');
       if (!buyButton) return;
 
       if (disable) {
         buyButton.setAttribute('disabled', '');
-        if (text) buyButtonText.innerText = text;
+        if (text) {
+          (buyButtonTextChild || buyButtonText).innerText = text;
+        }
       }
       else {
         buyButton.removeAttribute('disabled');
-        buyButtonText.innerText = buyButton.dataset.preOrder === 'true' ? theme.variantStrings.preOrder : theme.variantStrings.addToCart;
+        (buyButtonTextChild || buyButtonText).innerText = buyButton.dataset.preOrder === 'true' ? theme.variantStrings.preOrder : theme.variantStrings.addToCart;
       }
 
       if (!modifyClass) return;
@@ -4115,8 +4143,9 @@ class VariantSelects extends HTMLElement {
     productForms.forEach((productForm) => {
       const buyButton = productForm.querySelector('[name="add"]');
       const buyButtonText = buyButton.querySelector('[name="add"] > .btn-text');
+      const buyButtonTextChild = productForm.querySelector('[name="add"] > .btn-text span');
       if (!buyButton) return;
-      buyButtonText.innerText = theme.variantStrings.unavailable;
+      (buyButtonTextChild || buyButtonText).innerText = theme.variantStrings.unavailable;
 
       const price = document.getElementById(`Price-${this.dataset.section}`);
       if (price) price.classList.add('invisible');
@@ -4322,6 +4351,11 @@ class ProductForm extends HTMLFormElement {
             message: parsedState.message,
           });
           this.handleErrorMessage(parsedState.description);
+          document.dispatchEvent(new CustomEvent('ajaxProduct:error', {
+            detail: {
+              errorMessage: parsedState.description
+            }
+          }));
           
           const submitButtonText = this.submitButton.querySelector('.btn-text span');
           if (!submitButtonText || !submitButtonText.hasAttribute('data-sold-out')) return;
@@ -4335,6 +4369,11 @@ class ProductForm extends HTMLFormElement {
         cartJson['sections'] = parsedState['sections'];
 
         theme.pubsub.publish(theme.pubsub.PUB_SUB_EVENTS.cartUpdate, { cart: cartJson });
+        document.dispatchEvent(new CustomEvent('ajaxProduct:added', {
+          detail: {
+            product: parsedState
+          }
+        }));
 
         const quickViewModal = this.closest('quick-view');
         if (quickViewModal) {
@@ -4393,6 +4432,8 @@ class MediaGallery extends HTMLElement {
 
     this.addEventListener('lightbox:open', (event) => this.openZoom(event.detail.index));
     this.sliderGallery.addEventListener('slider:change', this.onSlideChange.bind(this));
+
+    this.countMediaGallery();
   }
 
   get productForm() {
@@ -4459,7 +4500,12 @@ class MediaGallery extends HTMLElement {
     });
 
     lightbox.on('change', () => {
-      this.sliderGallery.select(lightbox.pswp.currSlide.index + 1, true);
+      this.sliderGallery.select(lightbox.pswp.currIndex + 1, true);
+    });
+
+    lightbox.on('close', () => {
+      const slideSelected = this.sliderGallery.selected(lightbox.pswp.currIndex);
+      lightbox.pswp._lastActiveElement = slideSelected ? slideSelected.querySelector('button') : document.activeElement;
     });
 
     lightbox.init();
@@ -4492,6 +4538,8 @@ class MediaGallery extends HTMLElement {
       this.mediaPreview.parentNode.replaceChild(newMedia.cloneNode(true), this.mediaPreview);
       newMedia.classList.add('xl:hidden');
     }
+
+    this.countMediaGallery();
   }
 
   onSlideChange(event) {
@@ -4539,6 +4587,8 @@ class MediaGallery extends HTMLElement {
   }
 
   playActiveMedia(activeMedia) {
+    if (typeof activeMedia === 'undefined') return;
+    
     const deferredMedia = activeMedia.querySelector('.deferred-media');
 
     this.sliderGallery.querySelectorAll('.deferred-media').forEach((media) => {
@@ -4609,6 +4659,21 @@ class MediaGallery extends HTMLElement {
     }
 
     this.photoswipe.loadAndOpen(index, dataSource);
+  }
+
+  countMediaGallery() {
+    let mediaCount = 0;
+    this.sliderGallery.querySelectorAll('[data-media-id]').forEach((media) => {
+      if (!media.classList.contains('xl:hidden') && !media.hasAttribute('hidden')) {
+        mediaCount++;
+      }
+    });
+
+    if (this.mediaPreview) {
+      mediaCount++;
+    }
+
+    mediaCount > 1 ? this.classList.remove('with-only1') : this.classList.add('with-only1');
   }
 }
 customElements.define('media-gallery', MediaGallery);
@@ -4927,6 +4992,10 @@ class CountdownTimer extends HTMLElement {
     return this._date = this._date || new Date(`${this.dataset.month}/${this.dataset.day}/${this.dataset.year} ${this.dataset.hour}:${this.dataset.minute}:00`);
   }
 
+  get isCompact() {
+    return this.dataset.compact === 'true' || (this.dataset.compact === 'mobile' && theme.config.mqlSmall);
+  }
+
   init() {
     this.calculate();
     this.timerInterval = setInterval(this.calculate.bind(this), 1000);
@@ -4950,7 +5019,7 @@ class CountdownTimer extends HTMLElement {
     const mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
     const secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
 
-    if (this.dataset.compact === 'true') {
+    if (this.isCompact) {
       const dayHTML = days > 0 ? `<div class="countdown__item"><p>${days}${theme.dateStrings.d}</p></div>` : '';
       const hourHTML = `<div class="countdown__item"><p>${hours}${theme.dateStrings.h}</p></div>`;
       const minHTML = `<div class="countdown__item"><p>${mins}${theme.dateStrings.m}</p></div>`;
@@ -5418,6 +5487,16 @@ class QuickView extends XModal {
     this.quickview();
   }
 
+  afterShow() {
+    super.afterShow();
+
+    document.dispatchEvent(new CustomEvent('quickview:open', {
+      detail: {
+        productUrl: this.dataset.productUrl
+      }
+    }));
+  }
+
   afterHide() {
     super.afterHide();
 
@@ -5442,15 +5521,13 @@ class QuickView extends XModal {
           if (window.Shopify && Shopify.PaymentButton) {
             Shopify.PaymentButton.init();
           }
-        }, 200);
 
-        setTimeout(() => {
           document.dispatchEvent(new CustomEvent('quickview:loaded', {
             detail: {
               productUrl: this.dataset.productUrl
             }
           }));
-        }, 500);
+        }, 200);
       })
       .catch(e => {
         console.error(e);

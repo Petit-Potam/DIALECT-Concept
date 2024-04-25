@@ -187,9 +187,7 @@
             <div class="product-card__countdown hidden sm:flex justify-center absolute w-full z-0 pointer-events-none">
               <div class="button icon-with-text">
                 <div class="btn-text">
-                  <svg class="icon icon-countdown icon-sm flex-auto hidden md:block" viewBox="0 0 20 20" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-miterlimit="10" d="M4.15002 10.3833C4.15002 8.95831 4.57502 7.56665 5.36669 6.37498C6.15835 5.19165 7.28335 4.26665 8.60002 3.71665C9.91669 3.17498 11.3667 3.02498 12.7667 3.30831C14.1667 3.58331 15.45 4.27498 16.4584 5.28331C17.4667 6.29165 18.15 7.57498 18.4334 8.97498C18.7084 10.375 18.5667 11.825 18.025 13.1416C17.4834 14.4583 16.5584 15.5833 15.3667 16.375C14.1834 17.1666 12.9167 17.5 11.3584 17.5916M11.1084 10.8333L14.4417 7.36665M1.66669 13.2666H8.13335M3.85835 16H8.13335M5.85002 18.7333H8.13335M12.3584 0.983313C11.5417 0.783313 10.6917 0.783313 9.87502 0.983313"/>
-                  </svg>
+                  {%- render 'icon', icon: 'countdown-compact', size: 'sm', class: 'flex-auto hidden md:block' -%}
                   <countdown-timer
                     class="flex gap-3"
                     data-year="{{ product.metafields.theme.countdown.value | date: "%Y" }}"
@@ -237,7 +235,7 @@
             {{- product.title | escape -}}
           </a>
         </p>
-        {%- render 'product-price', product: product, class: 'flex lg:flex-col lg:items-end gap-2 md:gap-1d5' -%}
+        {%- render 'product-price', product: product, class: 'flex flex-wrap lg:flex-col lg:items-end gap-2 md:gap-1d5' -%}
       </div>
 
       {%- if show_color_swatches -%}
@@ -263,7 +261,7 @@
               assign max_color_count = settings.product_max_color_swatches
             -%}
             <div class="product-card__bottom flex items-center gap-2">
-              <ul class="swatches swatches--{{ settings.rounded_swatch }} swatches--{{ product.id }} inline-flex items-center gap-2">
+              <ul class="swatches swatches--{{ settings.rounded_swatch }}{% if settings.product_color_swatch_type == 'variant' %} swatches--variant{% endif %} swatches--{{ product.id }} inline-flex items-center gap-2">
                 {%- for variant in product.variants -%}
                   {%- assign value = variant.options[option_index] %}
                   {%- unless values contains value -%}
@@ -275,10 +273,19 @@
                       if settings.product_disable_collection_portion
                         assign color_url = variant.url
                       endif
+
+                      assign swatch = blank
+                      if value.swatch != blank
+                        assign swatch = value.swatch
+                      endif
+
+                      if settings.product_color_swatch_type == 'variant' and variant.image
+                        assign swatch = variant
+                      endif
                     -%}
                     {%- if color_count <= max_color_count -%}
                       <li>
-                        {%- render 'swatch', href: color_url, title: color_title, value: value, file_extension: swatch_file_extension -%}
+                        {%- render 'swatch', href: color_url, title: color_title, value: value, file_extension: swatch_file_extension, swatch: swatch -%}
                       </li>
                     {%- endif -%}
                   {%- endunless -%}

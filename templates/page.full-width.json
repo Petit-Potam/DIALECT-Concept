@@ -1,12 +1,1 @@
-{
-  "sections": {
-    "main-page": {
-      "type": "main-page-full-width",
-      "settings": {
-      }
-    }
-  },
-  "order": [
-    "main-page"
-  ]
-}
+{"sections":{"main-page":{"type":"main-page-full-width","settings":{}}},"order":["main-page"]}

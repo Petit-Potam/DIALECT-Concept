@@ -199,7 +199,9 @@
               bottom right corner of the page.
             {%- endcomment -%}
             <div class="field field--full rte text-sm">
+              {% # theme-check-disable TranslationKeyExists %}
               {{- 'shopify.online_store.spam_detection.disclaimer_html' | t -}}
+              {% # theme-check-enable TranslationKeyExists %}
             </div>
           </div>
         {%- endform -%}
@@ -1003,7 +1005,11 @@
     }
   ],
   "disabled_on": {
-    "groups": ["footer", "header", "custom.overlay"]
+    "groups": [
+      "footer",
+      "header",
+      "custom.overlay"
+    ]
   }
 }
 {% endschema %}

@@ -45,7 +45,7 @@
       "login_form_password": "Contraseña",
       "login_form_error": "Contraseña incorrecta",
       "login_form_submit": "Ingresar",
-      "admin_link_html": "¿Eres el propietario de la tienda? <a href=\"\/admin\" class=\"link\">Inicia sesión aquí<\/a>",
+      "admin_link_html": "¿Eres el propietario de la tienda? <a href=\"/admin\" class=\"link\">Inicia sesión aquí</a>",
       "powered_by_shopify_html": "Esta tienda contará con tecnología Shopify {{ shopify }}"
     },
     "breadcrumbs": {
@@ -205,9 +205,9 @@
       "remove": "Quitar",
       "note": "Instrucciones especiales del pedido",
       "subtotal": "Subtotal",
-      "taxes_and_shipping_policy_at_checkout_html": "Los impuestos y <a href=\"{{ link }}\">gastos de envío<\/a> se calculan en la pantalla de pago",
+      "taxes_and_shipping_policy_at_checkout_html": "Los impuestos y <a href=\"{{ link }}\">gastos de envío</a> se calculan en la pantalla de pago",
       "taxes_included_but_shipping_at_checkout": "Impuesto incluido y los gastos de envío se calculan en la pantalla de pago",
-      "taxes_included_and_shipping_policy_html": "Impuesto incluido. Los <a href=\"{{ link }}\">gastos de envío<\/a> se calculan en la pantalla de pago.",
+      "taxes_included_and_shipping_policy_html": "Impuesto incluido. Los <a href=\"{{ link }}\">gastos de envío</a> se calculan en la pantalla de pago.",
       "taxes_and_shipping_at_checkout": "Los impuestos y gastos de envío se calculan en la pantalla de pago",
       "update": "Actualizar",
       "checkout": "Pagar pedido",
@@ -245,6 +245,7 @@
       "sort_by_label": "Ordenar por:"
     },
     "filtering": {
+      "filter_and_operator_subtitle": "Seleccionar todos",
       "filter_button": "Filtrar",
       "filter_by_label": "Filtros",
       "filter_and_sort": "Filtrar y ordenar",
@@ -261,10 +262,10 @@
     }
   },
   "localization": {
-    "country_label": "País\/región",
+    "country_label": "País/región",
     "language_label": "Idioma",
     "update_language": "Actualizar idioma",
-    "update_country": "Actualizar país\/región",
+    "update_country": "Actualizar país/región",
     "text_direction_trigger": "LTR"
   },
   "contact": {
@@ -304,7 +305,7 @@
       "address1": "Dirección 1",
       "address2": "Dirección 2",
       "city": "Ciudad",
-      "country": "País\/región",
+      "country": "País/región",
       "province": "Provincia",
       "zip": "Código postal",
       "phone": "Teléfono",
@@ -314,7 +315,7 @@
       "cancel": "Cancelar",
       "edit": "Editar",
       "delete": "Eliminar",
-      "delete_confirm": "¿Está seguro\/a de que deseas eliminar esta dirección?"
+      "delete_confirm": "¿Está seguro/a de que deseas eliminar esta dirección?"
     },
     "login": {
       "title": "Ingresar",
@@ -442,8 +443,8 @@
     "inventory": {
       "in_stock": "En stock, listo para enviar",
       "low_stock_html": {
-        "one": "Dese prisa, solo queda <strong>{{ count }}<\/strong> artículo en stock!",
-        "other": "Dese prisa, solo quedan <strong>{{ count }}<\/strong> artículos en stock!"
+        "one": "Dese prisa, solo queda <strong>{{ count }}</strong> artículo en stock!",
+        "other": "Dese prisa, solo quedan <strong>{{ count }}</strong> artículos en stock!"
       },
       "out_of_stock": "Agotado",
       "out_of_stock_continue_selling": "En existencias",
@@ -456,9 +457,9 @@
       "view_store_info": "Ver información de la tienda",
       "check_other_stores": "Verificar disponibilidad en otras tiendas",
       "pick_up_available": "Retiro disponible",
-      "pick_up_available_at_html": "Retiro disponible en <span class=\"color-foreground\">{{ location_name }}<\/span>",
+      "pick_up_available_at_html": "Retiro disponible en <span class=\"color-foreground\">{{ location_name }}</span>",
       "pick_up_unavailable": "Recogida no disponible actualmente",
-      "pick_up_unavailable_at_html": "Retiro no disponible actualmente en <span class=\"color-foreground\">{{ location_name }}<\/span>",
+      "pick_up_unavailable_at_html": "Retiro no disponible actualmente en <span class=\"color-foreground\">{{ location_name }}</span>",
       "unavailable": "No se pudo cargar la disponibilidad de retiro",
       "refresh": "Actualizar"
     }

@@ -1,7 +1,8 @@
-{% comment %}theme-check-disable RemoteAsset{% endcomment %}
 <article class="grid md:flex items-start gap-4 md:gap-7d5">
   {%- if show_gravatar -%}
+    {% # theme-check-disable RemoteAsset %}
     <img class="gravatar rounded-full" src="//www.gravatar.com/avatar/{{ comment.email | md5 }}?s=100" alt="{{ comment.author | escape }}" loading="lazy" width="100" height="100" />
+    {% # theme-check-enable RemoteAsset %}
   {%- endif -%}
   <div class="grid gap-4">
     <ul class="article-card__top grid md:flex flex-wrap gap-4">

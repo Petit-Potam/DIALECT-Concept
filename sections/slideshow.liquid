@@ -363,6 +363,16 @@
       "default": "#171717"
     },
     {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 25,
+      "step": 1,
+      "unit": "%",
+      "label": "t:sections.global.settings.overlay_opacity.label",
+      "default": 20
+    },
+    {
       "type": "header",
       "content": "t:sections.global.settings.header__section.content"
     },
@@ -715,7 +725,11 @@
     }
   ],
   "disabled_on": {
-    "groups": ["footer", "header", "custom.overlay"]
+    "groups": [
+      "footer",
+      "header",
+      "custom.overlay"
+    ]
   }
 }
 {% endschema %}
