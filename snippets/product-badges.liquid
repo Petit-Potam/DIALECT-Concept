@@ -18,9 +18,12 @@
       {%- endif -%}
     {%- endcapture -%}
     {%- for label in product.metafields.theme.label.value -%}
-      <span class="badge flex items-center gap-1d5 font-medium leading-none rounded-full"{% if styles != blank %} style="{{ styles }}"{% endif %}>
+      {% comment %}DIALECT - START Add label name in badge class so we can style it easily{% endcomment %}
+      {%- assign label = label | replace: ' ', '-' -%}
+      <span class="{{- label | remove:" " | escape | append: " " -}} badge flex items-center gap-1d5 font-medium leading-none rounded-full"{% if styles != blank %} style="{{ styles }}"{% endif %}>
         {{- label | escape -}}
       </span>
+      {% comment %}DIALECT - END Add label name in badge class so we can style it easily{% endcomment %}
     {%- endfor -%}
   {%- endif -%}
 
