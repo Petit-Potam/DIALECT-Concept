@@ -174,6 +174,31 @@ Product info is the block of information on the right side of the product page (
 PRODUCT CARD
 Product card is the product block displayed on collections lists and sliders
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.product-card__media .badges {
+  inset-block-start: var(--sp-2);
+  inset-inline-start: var(--sp-2);
+  gap: var(--sp-1);
+  display: flex;
+  flex-wrap: wrap;
+  width: 60%;
+}
+.product-card__media .badges .badge {
+  padding: var(--sp-1) var(--sp-2);
+  font-size: 0.7em;
+  font-weight: 400;
+}
+.product-card__media .badges .badge.Women {
+  background-color: darksalmon;
+}
+.product-card__media .badges .badge.Men {
+  background-color: darkseagreen;
+}
+.product-card__media .badges .badge.Unisex {
+  background-color: darkkhaki;
+}
+.product-card__media .badges .badge.Bestseller {
+  background-color: black;
+}
 .product-card__content {
   display: flex;
   flex-flow: column;
@@ -228,5 +253,8 @@ Mobile adjustments for product card - Display in lists instead of cards
   }
   .collection .card-grid .card.product-card:not(.product-card--promo) .product-card__content {
     width: 55%;
+  }
+  .product-card__media .badges {
+    width: 90%;
   }
 }
