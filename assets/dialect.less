@@ -235,6 +235,38 @@ Product card is the product block displayed on collections lists and sliders
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .product-card{
+    &__media{
+        .badges{
+            inset-block-start: var(--sp-2);
+            inset-inline-start: var(--sp-2);
+            gap: var(--sp-1);
+            display: flex;
+            flex-wrap: wrap;
+            width: 60%;
+
+            .badge{
+                padding: var(--sp-1) var(--sp-2);
+                font-size: 0.7em;
+                font-weight: 400;
+
+                &.Women{
+                    background-color: darksalmon;
+                }
+
+                &.Men{
+                    background-color: darkseagreen;
+                }
+
+                &.Unisex{
+                    background-color: darkkhaki;
+                }
+
+                &.Bestseller{
+                    background-color: black;
+                }
+            }
+        }
+    }
 
     &__content{
         display: flex;
@@ -311,6 +343,14 @@ Mobile adjustments for product card - Display in lists instead of cards
 
         .product-card__content{
             width: 55%;
+        }
+    }
+
+    .product-card{
+        &__media{
+            .badges{
+                width: 90%;
+            }
         }
     }
 }
