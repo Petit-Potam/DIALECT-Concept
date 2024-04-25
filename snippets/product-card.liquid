@@ -230,13 +230,14 @@
       {%- endif -%}
 
       <div class="product-card__details flex flex-col lg:flex-row items-baseline gap-2 w-full">
-        <p class="grow">
-          <a class="product-card__title reversed-link text-base-xl font-medium leading-tight" href="{{ product_url }}">
-            {{- product.title | escape -}}
-          </a>
-        </p>
+        {% comment %}START Dialect Custom - Display product's title and reviews on product card{% endcomment %}
+        {%  render 'cust__product-card__title-reviews-stars', product: product %}
+        {% comment %}END Dialect Custom - Display product's title reviews on product card{% endcomment %}  
         {%- render 'product-price', product: product, class: 'flex flex-wrap lg:flex-col lg:items-end gap-2 md:gap-1d5' -%}
       </div>
+
+      <div class="product-card__filler"></div>
+      
       {% comment %}START Dialect Custom - Display product's inspiration on product card{% endcomment %}
       {%  render 'cust__product-card__inspired-by', product: product %}
       {% comment %}END Dialect Custom - Display product's inspiration on product card{% endcomment %}  
