@@ -1,1 +1,16 @@
-{"sections":{"main-login":{"type":"main-login","settings":{"heading_size":"title-xl tracking-heading","padding_top":72,"padding_bottom":100,"rounded":false}}},"order":["main-login"]}
+{
+  "sections": {
+    "main-login": {
+      "type": "main-login",
+      "settings": {
+        "heading_size": "title-xl tracking-heading",
+        "padding_top": 72,
+        "padding_bottom": 100,
+        "rounded": false
+      }
+    }
+  },
+  "order": [
+    "main-login"
+  ]
+}

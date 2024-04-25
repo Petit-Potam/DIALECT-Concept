@@ -36,13 +36,13 @@
   
     {{ content_for_header }}
   
-    <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'vendor-v2.js' | asset_url | split: '?' | first }}" defer="defer"></script>
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'giftcard.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer="defer"></script>
   </head>
   
-  <body class="template-giftcard"{% if request.design_mode %} shopify-design-mode{% endif %} data-rounded-button="{{ settings.rounded_button }}" data-rounded-input="{{ settings.rounded_input }}" data-rounded-block="{{ settings.rounded_block }}" data-button_hover="{{ settings.buttons_hover }}"{% if settings.enable_lazy_image %} data-lazy-image{% endif %} data-page-rendering>
+  <body class="template-giftcard"{% if request.design_mode %} shopify-design-mode{% endif %}" data-rounded-button="{{ settings.rounded_button }}" data-rounded-input="{{ settings.rounded_input }}" data-rounded-block="{{ settings.rounded_block }}" data-button_hover="{{ settings.buttons_hover }}"{% if settings.enable_lazy_image %} data-lazy-image{% endif %} data-page-rendering>
     <a class="sr-only skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
   
     <div class="page-container" id="PageContainer">
