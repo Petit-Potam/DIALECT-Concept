@@ -235,23 +235,54 @@ Product card is the product block displayed on collections lists and sliders
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .product-card{
-    &__title{
-        text-transform: uppercase;
-        // font-family: sequel45;
+
+    &__content{
+        display: flex;
+        flex-flow: column;
+        padding: 1em;
+        min-height: 144px;
+    }
+
+    &__details{
+        justify-content: space-between;
+    }
+
+    &__reviews{
         
+    }
+
+    &__title{
+        padding-top: .5em;
+
         a{
-            // font-size: .8em;
-            //font-weight: bold;
+            font-family: sequel45;
+            font-size: 1em;
+            //font-weight: 700;
+            //text-transform: uppercase;
         }
     }
 
+    &__filler{
+        flex: 1;
+        display: block !important; // Override display none from script which add display none to empty divs
+    }
+
     &__inspired-by{
-        font-size: .9em;
+        padding-top: .5em;
+        font-size: .8em;
+
+        &__text{
+            padding-bottom: .2em;
+        }
 
         span{
             //color: #EE7103;
             font-weight: 400;
         }
+    }
+
+    &__retail-price{
+        color: #EE7103;
     }
 
     .price-list sale-price{
@@ -262,5 +293,24 @@ Product card is the product block displayed on collections lists and sliders
 
     .jdgm-prev-badge{
         font-size: .7em;
+    }
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PRODUCT CARD MOBILE
+Mobile adjustments for product card - Display in lists instead of cards
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media screen and (max-width: 639px) {    
+    .collection .card-grid .card.product-card:not(.product-card--promo){
+        display: flex;
+
+        .product-card__media{
+            width: 45%;
+        }
+
+        .product-card__content{
+            width: 55%;
+        }
     }
 }
