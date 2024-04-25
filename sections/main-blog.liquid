@@ -39,31 +39,20 @@
               assign subtext_size = 'subtext-lg'
             endif
           -%}
-          <div class="page-width--narrow rte leading-normal {{ subtext_size }}">{{ section.settings.description }}</div>
+          <div class="inline-flex justify-center rte">
+            <div class="page-width--narrow rte leading-normal {{ subtext_size }}">{{ section.settings.description }}</div>
+          </div>
         {%- endif -%}
 
         {%- if section.settings.show_tag_filter and blog.tags.size > 0 -%}
           <div class="hidden md:block">
-            <ul class="subcollections inline-flex flex-wrap max-w-full">
+            <ul class="subcollections inline-flex flex-wrap justify-center max-w-full">
               <li class="flex items-center justify-center relative{% if current_tags == blank %} active{% endif %}">
                 <a href="{{ blog.url }}" class="subcollection flex items-center relative leading-tight text-lg-2xl">
                   <span class="btn-text">{{ 'blogs.article.all_tags' | t }}</span>
                 </a>
               </li>
               {%- for tag in blog.all_tags -%}
-                {%- liquid
-                  if tag contains "_"
-                    assign tag_starts_with = tag | slice: 0
-    
-                    if tag_starts_with == "_"
-                      if tag_count
-                        assign tag_count = tag_count | minus: 1 | at_least: 0
-                      endif
-    
-                      continue
-                    endif
-                  endif
-                -%}
                 <li class="flex items-center justify-center relative{% if current_tags contains tag %} active{% endif %}">
                   <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="subcollection flex items-center relative leading-tight text-lg-2xl">
                     <span class="btn-text">{{ tag }}</span>
@@ -78,19 +67,6 @@
               <select class="select" is="tag-filter">
                 <option value="{{ blog.url }}">{{ 'blogs.article.all_tags' | t }}</option>
                 {%- for tag in blog.all_tags -%}
-                  {%- liquid
-                    if tag contains "_"
-                      assign tag_starts_with = tag | slice: 0
-    
-                      if tag_starts_with == "_"
-                        if tag_count
-                          assign tag_count = tag_count | minus: 1 | at_least: 0
-                        endif
-    
-                        continue
-                      endif
-                    endif
-                  -%}
                   <option value="{{ blog.url }}/tagged/{{ tag | handleize }}" {% if current_tags contains tag %}selected{% endif %}>{{ tag }}</option>
                 {%- endfor -%}
               </select>

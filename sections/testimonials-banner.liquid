@@ -55,7 +55,7 @@
                   endif
                 -%}
                 {%- for block in section.blocks -%}
-                  <div class="testimonial with-{{ block.settings.icon }} flex flex-col" {{ block.shopify_attributes }}>
+                  <div class="testimonial with-{{ block.settings.icon }} flex flex-col w-full" {{ block.shopify_attributes }}>
                     <blockquote>
                       {%- render 'highlighted-text', content: block.settings.text, style: block.settings.highlighted_text, scribble: block.settings.highlighted_scribble, gradient: withGradient -%}
                       
@@ -555,7 +555,11 @@
     }
   ],
   "disabled_on": {
-    "groups": ["footer", "header", "custom.overlay"]
+    "groups": [
+      "footer",
+      "header",
+      "custom.overlay"
+    ]
   }
 }
 {% endschema %}

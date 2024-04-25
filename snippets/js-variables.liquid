@@ -57,9 +57,9 @@
   theme.settings = {
     cartType: {{ settings.cart_type | json }},
     isCartTemplate: {% if request.page_type == 'cart' %}true{% else %}false{% endif %},
-    pswpModule: {{ 'photoswipe.min.js' | asset_url | split: '?' | first | json }},
+    pswpModule: {{ 'photoswipe.min.js' | asset_url | json }},
     themeName: 'Concept',
-    themeVersion: '1.3.1',
+    themeVersion: '1.4.1',
     agencyId: ''
   };
 

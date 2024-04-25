@@ -1,32 +1,37 @@
 {%- liquid
   if section.settings.show_image
-    if collection.image != blank
-      assign collection_image = collection.image
-    elsif section.settings.image != blank
-      assign collection_image = section.settings.image
-    endif
+    assign desktop_image = section.settings.image | default: collection.image
+    assign mobile_image = section.settings.image_mobile | default: desktop_image
   endif
 
-  assign collection_alt = collection_image.alt | default: collection.title
+  assign collection_alt = desktop_image.alt | default: collection.title
 -%}
 
 <style>
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-    {%- if collection_image != blank %}
+    {%- if desktop_image != blank %}
       {%- render 'section-variables', section: section -%}
       {%- if section.settings.image_height == 'adapt' %}
-        --ratio-percent: {{ 1 | divided_by: collection_image.aspect_ratio | times: 100 }}%;
+        --ratio-percent: {{ 1 | divided_by: desktop_image.aspect_ratio | times: 100 }}%;
       {% endif -%}
     {% endif -%}
   }
+
+  {%- if mobile_image != blank and section.settings.image_height_mobile == 'adapt' %}
+    @media screen and (max-width: 767px) {
+      #shopify-section-{{ section.id }} {
+        --ratio-percent: {{ 1 | divided_by: mobile_image.aspect_ratio | times: 100 }}%;
+      }
+    }
+  {% endif -%}
 </style>
 
-<div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}"{% if section.settings.transparent_header and collection_image != blank %} allow-transparent-header{% endif %}>
+<div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}"{% if section.settings.transparent_header and desktop_image != blank %} allow-transparent-header{% endif %}>
   <div class="{% unless section.settings.full_width %}page-width {% endunless %}relative">
-    <div class="banner relative{% if collection_image != blank %} media--{{ section.settings.image_height }} mobile:media--{{ section.settings.image_height_mobile }}{% endif %}">
-      {%- if collection_image != blank -%}
+    <div class="banner relative{% if desktop_image != blank %} media--{{ section.settings.image_height }} mobile:media--{{ section.settings.image_height_mobile }}{% endif %}">
+      {%- if desktop_image != blank -%}
         {%- liquid
           if section.index == 1
             assign loading = 'eager'
@@ -39,14 +44,25 @@
         <media-element class="banner__media block w-full h-full overflow-hidden"{% if section.settings.enable_parallax %} data-parallax="0.3" data-parallax-dir="{{ section.settings.parallax_direction }}"{% endif %}>
           <animate-element data-animate="zoom-out" class="media media--height block w-full h-full relative overflow-hidden">
             {%- capture sizes -%}{% if section.settings.full_width %}100vw{% else %}min({{ settings.page_width }}px, 100vw){% endif %}{%- endcapture -%}
-            {{- collection_image | image_url: width: collection_image.width | image_tag: loading: loading, fetchpriority: fetchpriority, widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', sizes: sizes, is: 'lazy-image', alt: collection_alt -}}
+            <picture class="media media--height block w-full h-full relative overflow-hidden">
+              {%- if mobile_image -%}
+                <source
+                  media="(max-width: 767px)"
+                  srcset="{{ mobile_image | image_url: width: '400x' }} 400w, {{ mobile_image | image_url: width: '600x' }} 600w, {{ mobile_image | image_url: width: '800x' }} 800w, {{ mobile_image | image_url: width: '1000x' }} 1000w"
+                  width="{{ mobile_image.width }}"
+                  height="{{ mobile_image.height }}"
+                >
+              {%- endif -%}
+
+              {{- desktop_image | image_url: width: desktop_image.width | image_tag: loading: loading, fetchpriority: fetchpriority, sizes: sizes, widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', is: 'lazy-image', alt: collection_alt -}}
+            </picture>
           </animate-element>
         </media-element>
         <span class="banner__overlay absolute top-0 left-0 w-full h-full pointer-events-none"></span>
       {%- endif -%}
     
       {%- if section.blocks.size > 0 -%}
-        <div class="banner__content overflow-hidden{% if collection_image != blank %} absolute z-1 top-0 left-0 w-full h-full{% endif %}">
+        <div class="banner__content overflow-hidden{% if desktop_image != blank %} absolute z-1 top-0 left-0 w-full h-full{% endif %}">
           <div class="page-width w-full h-full flex {{ section.settings.content_position }} {{ section.settings.content_position_mobile }}">
             <div class="banner__box md:text-{{ section.settings.text_alignment }} text-{{ section.settings.text_alignment_mobile }}">
               {%- assign delay = 0 -%}
@@ -80,9 +96,9 @@
                     </animate-element>
 
                   {%- when 'title' -%}
-                    <h1 class="banner__title heading font-bold leading-none {{ block.settings.title_size }}{% if block.settings.title_size == 'title-xl' %} tracking-heading{% endif %}{% unless collection_image %} relative{% endunless %}" {{ block.shopify_attributes }}>
+                    <h1 class="banner__title heading font-bold leading-none {{ block.settings.title_size }}{% if block.settings.title_size == 'title-xl' %} tracking-heading{% endif %}{% unless desktop_image %} relative{% endunless %}" {{ block.shopify_attributes }}>
                       <split-words class="split-words flex flex-wrap" data-animate="fade-up-large" data-animate-delay="{{ delay | times: 250 }}">{{ collection.title }}</split-words>
-                      {%- unless collection_image -%}
+                      {%- unless desktop_image -%}
                         {%- if collection.metafields.theme.marquee.value != blank -%}
                           <div class="block absolute bottom-0 w-full pointer-events-none">
                             <marquee-element class="flex font-bold {{ block.settings.title_size }}2x tracking-heading" {% if section.settings.enable_parallax %} data-parallax="1.5"{% endif %}>
@@ -241,6 +257,12 @@
     {
       "type": "header",
       "content": "t:sections.global.settings.header__mobile.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "t:sections.global.settings.image_mobile.label",
+      "info": "t:sections.main-collection-banner.settings.image.info"
     },
     {
       "type": "select",

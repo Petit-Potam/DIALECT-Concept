@@ -44,6 +44,9 @@
         </div>
       </div>
     {%- endif -%}
+    {%- if block.settings.heading == blank and block.settings.link != blank -%}
+      <a href="{{ block.settings.link }}" class="block absolute z-1 top-0 left-0 w-full h-full" aria-hidden="true">&nbsp;</a>
+    {%- endif -%}
   {%- endcapture -%}
 
   {%- case block.type -%}

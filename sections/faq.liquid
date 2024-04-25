@@ -210,25 +210,23 @@
   </div>
 </div>
 
-{%- if section.blocks.size > 0 -%}
+{%- assign question_blocks = section.blocks | where: 'type', 'question' -%}
+{%- if question_blocks.size > 0 -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        {%- for block in section.blocks -%}
-          {%- case block.type %}
-            {%- when 'question' %}
-              {
-                "@type": "Question",
-                "name": {{ block.settings.title | json }},
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": {{ block.settings.text | json }}
-                }
-              }{% unless forloop.last %},{% endunless %}
-          {% endcase -%}
-        {%- endfor -%}
+        {%- for block in question_blocks -%}
+          {
+            "@type": "Question",
+            "name": {{ block.settings.title | json }},
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": {{ block.settings.text | json }}
+            }
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor -%}
       ]
     }
   </script>
@@ -834,7 +832,11 @@
     }
   ],
   "disabled_on": {
-    "groups": ["footer", "header", "custom.overlay"]
+    "groups": [
+      "footer",
+      "header",
+      "custom.overlay"
+    ]
   }
 }
 {% endschema %}

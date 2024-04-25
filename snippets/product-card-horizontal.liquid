@@ -31,7 +31,7 @@
     <div class="grid gap-1">
       {%- liquid
         if show_price
-          render 'product-price', product: product, class: 'flex items-end gap-2 text-sm'
+          render 'product-price', product: product, class: 'flex flex-wrap items-end gap-2 text-sm'
         endif
       -%}
     </div>
@@ -46,10 +46,10 @@
               <button type="submit" class="button button--primary button--small icon-with-text" is="hover-button" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
                 <span class="btn-fill" data-fill></span>
                 <span class="btn-text">
-                  {%- liquid
-                    render 'icon', icon: 'plus', size: '2xs'
-                    echo 'products.product.quick_add' | t
-                  -%}
+                  {%- render 'icon', icon: 'plus', size: '2xs' -%}
+                  <span class="hidden md:block" data-sold-out="{{ 'products.product.sold_out' | t | escape }}">
+                    {{- 'products.product.quick_add' | t -}}
+                  </span>
                 </span>
               </button>
             {%- endform -%}
@@ -58,10 +58,10 @@
               <button type="button" class="button button--primary button--small icon-with-text" is="hover-button" aria-controls="Quickview-{{ section.id }}-{{ product.id }}" aria-expanded="false">
                 <span class="btn-fill" data-fill></span>
                 <span class="btn-text">
-                  {%- liquid
-                    render 'icon', icon: 'plus', size: '2xs'
-                    echo 'products.product.quick_view' | t
-                  -%}
+                  {%- render 'icon', icon: 'plus', size: '2xs' -%}
+                  <span class="hidden md:block" data-sold-out="{{ 'products.product.sold_out' | t | escape }}">
+                    {{- 'products.product.quick_view' | t -}}
+                  </span>
                 </span>
               </button>
               <quick-view id="Quickview-{{ section.id }}-{{ product.id }}" class="quick-view x-modal drawer z-30 fixed bottom-0 left-0 h-full w-full pointer-events-none" data-product-url="{{ product.url }}" role="dialog" aria-label="{{ 'products.product.choose_product_options' | t: product_name: product.title | escape }}" aria-modal="true">
@@ -82,10 +82,10 @@
               <a href="{{ product.url }}" class="button button--primary button--small icon-with-text" is="hover-link">
                 <span class="btn-fill" data-fill></span>
                 <span class="btn-text">
-                  {%- liquid
-                    render 'icon', icon: 'plus', size: '2xs'
-                    echo 'products.product.quick_view' | t
-                  -%}
+                  {%- render 'icon', icon: 'plus', size: '2xs' -%}
+                  <span class="hidden md:block" data-sold-out="{{ 'products.product.sold_out' | t | escape }}">
+                    {{- 'products.product.quick_view' | t -}}
+                  </span>
                 </span>
               </a>
             {%- endif -%}

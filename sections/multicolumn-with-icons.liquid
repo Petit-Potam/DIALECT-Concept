@@ -19,7 +19,11 @@
       -%}
       {%- for block in section.blocks -%}
         <div class="column flex gap-5 w-full flex-col xl:flex-row xl:text-{{ section.settings.text_alignment }} text-center" {{ block.shopify_attributes }}>
-          {%- if block.settings.icon != 'none' -%}
+          {%- if block.settings.custom_icon != blank -%}
+            <div class="column__icon with-svg">
+              {{- block.settings.custom_icon -}}
+            </div>
+          {%- elsif block.settings.icon != 'none' -%}
             <div class="column__icon">
               {%- render 'icon-guarantee', icon: block.settings.icon, size: 'lg', class: 'inline-block' -%}
             </div>
@@ -582,6 +586,12 @@
           ]
         },
         {
+          "type": "html",
+          "id": "custom_icon",
+          "label": "t:sections.multicolumn.blocks.column.settings.custom_icon.label",
+          "info": "t:sections.multicolumn.blocks.column.settings.custom_icon.info"
+        },
+        {
           "type": "inline_richtext",
           "id": "heading",
           "label": "t:sections.global.settings.heading.label",
@@ -692,7 +702,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "custom.overlay"]
+    "groups": [
+      "header",
+      "custom.overlay"
+    ]
   }
 }
 {% endschema %}

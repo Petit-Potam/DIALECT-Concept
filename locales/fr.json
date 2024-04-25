@@ -45,7 +45,7 @@
       "login_form_password": "Mot de passe",
       "login_form_error": "Mot de passe incorrect!",
       "login_form_submit": "Saisir",
-      "admin_link_html": "La boutique vous appartient-elle? <a href=\"\/admin\" class=\"link\">Se connecter ici<\/a>",
+      "admin_link_html": "La boutique vous appartient-elle? <a href=\"/admin\" class=\"link\">Se connecter ici</a>",
       "powered_by_shopify_html": "Cette boutique sera propulsée par {{ shopify }}"
     },
     "breadcrumbs": {
@@ -205,9 +205,9 @@
       "remove": "Retirer",
       "note": "Instructions spéciales concernant la commande",
       "subtotal": "Sous-total",
-      "taxes_and_shipping_policy_at_checkout_html": "Taxes et <a href=\"{{ link }}\">frais d'expédition<\/a> calculés lors du paiement",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes et <a href=\"{{ link }}\">frais d'expédition</a> calculés lors du paiement",
       "taxes_included_but_shipping_at_checkout": "Taxes incluses et frais d'expédition calculés lors du paiement",
-      "taxes_included_and_shipping_policy_html": "Taxes incluses. <a href=\"{{ link }}\">Frais d'expédition<\/a> calculés à l'étape de paiement.",
+      "taxes_included_and_shipping_policy_html": "Taxes incluses. <a href=\"{{ link }}\">Frais d'expédition</a> calculés à l'étape de paiement.",
       "taxes_and_shipping_at_checkout": "Taxes et frais d'expédition calculés lors du paiement",
       "update": "Mettre à jour",
       "checkout": "Procéder au paiement",
@@ -245,6 +245,7 @@
       "sort_by_label": "Trier par:"
     },
     "filtering": {
+      "filter_and_operator_subtitle": "Tout associer",
       "filter_button": "Filtrer",
       "filter_by_label": "Filtres",
       "filter_and_sort": "Filtrer et trier",
@@ -261,10 +262,10 @@
     }
   },
   "localization": {
-    "country_label": "Pays\/région",
+    "country_label": "Pays/région",
     "language_label": "Langue",
     "update_language": "Mettre à jour la langue",
-    "update_country": "Mettre à jour le pays\/la région",
+    "update_country": "Mettre à jour le pays/la région",
     "text_direction_trigger": "LTR"
   },
   "contact": {
@@ -304,7 +305,7 @@
       "address1": "Adresse 1",
       "address2": "Adresse 2",
       "city": "Ville",
-      "country": "Pays\/région",
+      "country": "Pays/région",
       "province": "Province",
       "zip": "Code postal",
       "phone": "Téléphone",
@@ -442,8 +443,8 @@
     "inventory": {
       "in_stock": "En stock, prêt à être expédié",
       "low_stock_html": {
-        "one": "Dépêchez-vous <strong>{{ count }}<\/strong> éléments en stock!",
-        "other": "Dépêchez-vous <strong>{{ count }}<\/strong> éléments en stock!"
+        "one": "Dépêchez-vous <strong>{{ count }}</strong> éléments en stock!",
+        "other": "Dépêchez-vous <strong>{{ count }}</strong> éléments en stock!"
       },
       "out_of_stock": "En rupture de stock",
       "out_of_stock_continue_selling": "En stock",
@@ -456,9 +457,9 @@
       "view_store_info": "Afficher les informations de la boutique",
       "check_other_stores": "Vérifier la disponibilité dans d'autres boutiques",
       "pick_up_available": "Service de retrait disponible",
-      "pick_up_available_at_html": "Service de retrait disponible à <span class=\"color-foreground\">{{ location_name }}<\/span>",
+      "pick_up_available_at_html": "Service de retrait disponible à <span class=\"color-foreground\">{{ location_name }}</span>",
       "pick_up_unavailable": "Récupération actuellement indisponible",
-      "pick_up_unavailable_at_html": "Service de retrait non disponible actuellement à <span class=\"color-foreground\">{{ location_name }}<\/span>",
+      "pick_up_unavailable_at_html": "Service de retrait non disponible actuellement à <span class=\"color-foreground\">{{ location_name }}</span>",
       "unavailable": "Impossible de charger la disponibilité du service de retrait",
       "refresh": "Actualiser"
     }

@@ -45,7 +45,7 @@
       "login_form_password": "Password",
       "login_form_error": "Password errata!",
       "login_form_submit": "Accedi",
-      "admin_link_html": "Sei il proprietario del negozio? <a href=\"\/admin\" class=\"link\">Accedi qui<\/a>",
+      "admin_link_html": "Sei il proprietario del negozio? <a href=\"/admin\" class=\"link\">Accedi qui</a>",
       "powered_by_shopify_html": "Questo negozio sarà ospitato su {{ shopify }}"
     },
     "breadcrumbs": {
@@ -205,9 +205,9 @@
       "remove": "Rimuovi",
       "note": "Istruzioni speciali per l'ordine",
       "subtotal": "Subtotale",
-      "taxes_and_shipping_policy_at_checkout_html": "Imposte e <a href=\"{{ link }}\">spese di spedizione<\/a> calcolate al momento del check-out",
+      "taxes_and_shipping_policy_at_checkout_html": "Imposte e <a href=\"{{ link }}\">spese di spedizione</a> calcolate al momento del check-out",
       "taxes_included_but_shipping_at_checkout": "Imposte incluse e spese di spedizione calcolate al momento del check-out",
-      "taxes_included_and_shipping_policy_html": "Imposte incluse. <a href=\"{{ link }}\">Spese di spedizione<\/a> calcolate al check-out.",
+      "taxes_included_and_shipping_policy_html": "Imposte incluse. <a href=\"{{ link }}\">Spese di spedizione</a> calcolate al check-out.",
       "taxes_and_shipping_at_checkout": "Imposte e spese di spedizione calcolate al momento del check-out",
       "update": "Aggiorna",
       "checkout": "Check-out",
@@ -245,6 +245,7 @@
       "sort_by_label": "Ordina per:"
     },
     "filtering": {
+      "filter_and_operator_subtitle": "Seleziona tutte",
       "filter_button": "Filtra",
       "filter_by_label": "Filtri",
       "filter_and_sort": "Filtra e ordina",
@@ -261,10 +262,10 @@
     }
   },
   "localization": {
-    "country_label": "Paese\/Area geografica",
+    "country_label": "Paese/Area geografica",
     "language_label": "Lingua",
     "update_language": "Aggiorna lingua",
-    "update_country": "Aggiorna paese\/area geografica",
+    "update_country": "Aggiorna paese/area geografica",
     "text_direction_trigger": "LTR"
   },
   "contact": {
@@ -304,7 +305,7 @@
       "address1": "Indirizzo - campo 1",
       "address2": "Indirizzo - campo 2",
       "city": "Città",
-      "country": "Paese\/Area geografica",
+      "country": "Paese/Area geografica",
       "province": "Provincia",
       "zip": "CAP",
       "phone": "Numero di telefono",
@@ -442,8 +443,8 @@
     "inventory": {
       "in_stock": "In magazzino, pronto per la spedizione",
       "low_stock_html": {
-        "one": "Sbrigati, solo <strong>{{ count }}<\/strong> oggetto rimasto in magazzino!",
-        "other": "Sbrigati, solo <strong>{{ count }}<\/strong> oggetti rimasti in magazzino!"
+        "one": "Sbrigati, solo <strong>{{ count }}</strong> oggetto rimasto in magazzino!",
+        "other": "Sbrigati, solo <strong>{{ count }}</strong> oggetti rimasti in magazzino!"
       },
       "out_of_stock": "Esaurito",
       "out_of_stock_continue_selling": "Disponibile",
@@ -456,9 +457,9 @@
       "view_store_info": "Visualizza i dettagli del negozio",
       "check_other_stores": "Verifica la disponibilità in altri negozi",
       "pick_up_available": "Ritiro disponibile",
-      "pick_up_available_at_html": "Ritiro disponibile presso la sede <span class=\"color-foreground\">{{ location_name }}<\/span>",
+      "pick_up_available_at_html": "Ritiro disponibile presso la sede <span class=\"color-foreground\">{{ location_name }}</span>",
       "pick_up_unavailable": "Ritiro attualmente non disponibile",
-      "pick_up_unavailable_at_html": "Ritiro attualmente non disponibile presso la sede <span class=\"color-foreground\">{{ location_name }}<\/span>",
+      "pick_up_unavailable_at_html": "Ritiro attualmente non disponibile presso la sede <span class=\"color-foreground\">{{ location_name }}</span>",
       "unavailable": "Impossibile caricare la disponibilità di ritiro",
       "refresh": "Aggiorna"
     }
