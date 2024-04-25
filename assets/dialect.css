@@ -20,7 +20,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Sequel45";
+  font-family: "Sequel45" !important;
 }
 /*=============================================
 =            Dialect Specific CSS            =
