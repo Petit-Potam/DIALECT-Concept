@@ -13,10 +13,10 @@
   {%- for link in main_menu.links limit: limit offset: offset -%}
     {%- liquid
       assign enable_mega_menu = false
-      assign link_title_handle = link.title | handle
+      assign link_title_handle = link.title | downcase | handle
 
       for block in section.blocks
-        assign menu_title_handle = block.settings.menu_title | handle
+        assign menu_title_handle = block.settings.menu_title | downcase | handle
         if menu_title_handle == link_title_handle
           assign enable_mega_menu = true
           assign mega_menu_block = block
@@ -27,7 +27,7 @@
     {%- if enable_mega_menu -%}
       <li>
         <details is="details-mega" trigger="{% if section.settings.hover_menu %}hover{% else %}click{% endif %}" level="top" {{ mega_menu_block.shopify_attributes }}>
-          <summary>
+          <summary data-link="{{ link.url }}">
             <magnet-element class="menu__item text-sm-lg flex items-center font-medium z-2 relative cursor-pointer"{% if menu_active == 'block' %} data-magnet="0"{% endif %}>
               <span class="btn-text" data-text>
                 {%- liquid
@@ -57,7 +57,7 @@
     {%- elsif link.links != blank -%}
       <li>
         <details is="details-dropdown" trigger="{% if section.settings.hover_menu %}hover{% else %}click{% endif %}" level="top">
-          <summary>
+          <summary data-link="{{ link.url }}">
             <magnet-element class="menu__item text-sm-lg flex items-center font-medium z-2 relative cursor-pointer"{% if menu_active == 'block' %} data-magnet="0"{% endif %}>
               <span class="btn-text" data-text>
                 {%- liquid
@@ -87,7 +87,7 @@
                   {%- if childlink.links != blank -%}
                     <li class="opacity-0 relative">
                       <details is="details-dropdown" trigger="hover" level="child">
-                        <summary>
+                        <summary data-link="{{ childlink.url }}">
                           <a href="{{ childlink.url }}" class="reversed-link text-sm-base" tabindex="-1">{{ childlink.title }}</a>
                         </summary>
                         <div class="dropdown opacity-0 absolute top-0 left-100 max-w-full pointer-events-none">

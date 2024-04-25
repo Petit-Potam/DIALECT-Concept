@@ -8,10 +8,12 @@
 {%- liquid
   echo 'article.css' | asset_url | stylesheet_tag
 
+  # theme-check-disable UndefinedObject
   assign number_of_comments = article.comments_count
   if comment.status == 'pending'
     assign number_of_comments = article.comments_count | plus: 1
   endif
+  # theme-check-enable UndefinedObject
 -%}
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
@@ -35,7 +37,10 @@
 
           {%- when 'share' -%}
             <div class="flex flex-wrap items-center justify-between" {{ block.shopify_attributes }}>
-              {%- render 'social-sharing', section_id: section.id, share_label: block.settings.share_label, share_title: article.title, share_permalink: article.url, share_image: article.image -%}
+              {%- liquid
+                assign article_url = request.origin | append: article.url
+                render 'social-sharing', section_id: section.id, share_label: block.settings.share_label, share_title: article.title, share_link: article_url, share_image: article.image
+              -%}
 
               {%- if block.settings.show_comments -%}
                 <span class="comment-count inline-flex gap-2 text-xs">
@@ -141,11 +146,13 @@
                       </h3>
 
                       <ul class="grid gap-5">
+                        {% # theme-check-disable UndefinedObject %}
                         {%- if comment.status == 'pending' -%}
                           <li id="Comment-{{ comment.id }}" class="comment-card">
                             {%- render 'article-comment', comment: comment, show_gravatar: block.settings.show_gravatar -%}
                           </li>
                         {%- endif -%}
+                        {% # theme-check-enable UndefinedObject %}
           
                         {%- for comment in article.comments -%}
                           <li id="Comment-{{ comment.id }}" class="comment-card">
@@ -214,7 +221,9 @@
                           bottom right corner of the page.
                         {%- endcomment -%}
                         <div class="rte text-sm">
+                          {% # theme-check-disable TranslationKeyExists %}
                           {{- 'shopify.online_store.spam_detection.disclaimer_html' | t -}}
+                          {% # theme-check-enable TranslationKeyExists %}
                         </div>
                       </div>
                     {%- endform -%}

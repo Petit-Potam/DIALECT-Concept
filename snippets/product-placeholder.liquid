@@ -75,7 +75,7 @@
         </media-dots>
         <template>
           <slot></slot>
-          <s dir="{{ 'localization.text_direction_trigger' | t | downcase | escape }}">
+          <s dir="{{ 'localization.text_direction_trigger' | t | downcase | escape }}" style="--t: 0; --b: 0; --l: 0; --r: 0;">
             <span class="t">{%- render 'icon', icon: 'chevron-up' -%}</span>
             <span class="b">{%- render 'icon', icon: 'chevron-down' -%}</span>
             <span class="l">{%- render 'icon', icon: 'chevron-left' -%}</span>
@@ -91,6 +91,9 @@
             s .l{inset-inline-start:0;inset-block:-5px;border-inline-end:1px solid rgb(var(--color-border));opacity:var(--l);}
             s .r{inset-inline-end:0;inset-block:-5px;border-inline-start:1px solid rgb(var(--color-border));opacity:var(--r);}
             s[dir=rtl] :is(.icon-chevron-left,.icon-chevron-right){transform:scaleX(-1);}
+            @media screen and (max-width: 1023px) {
+              s{display:none}
+            }
           </style>
         </template>
       </scroll-shadow>
@@ -151,7 +154,7 @@
 
             {%- if block.settings.show_price -%}
               <div id="Price-{{ section_id }}" class="product__price">
-                {%- render 'product-price', product: product, use_variant: true, class: 'flex items-baseline gap-2 lg:flex-col xl:items-end lg:gap-1d5' -%}
+                {%- render 'product-price', product: product, use_variant: true, class: 'flex flex-wrap items-baseline gap-2 lg:flex-col xl:items-end lg:gap-1d5' -%}
               </div>
             {%- endif -%}
           </div>
@@ -160,7 +163,7 @@
           <div class="product__price" {{ block.shopify_attributes }}>
             {%- unless title_block_show_price -%}
               <div class="no-js-hidden" id="Price-{{ section_id }}">
-                {%- render 'product-price', product: product, use_variant: true, class: 'flex items-baseline gap-2 lg:gap-1d5' -%}
+                {%- render 'product-price', product: product, use_variant: true, class: 'flex flex-wrap items-baseline gap-2 lg:gap-1d5' -%}
               </div>
             {%- endunless -%}
 
@@ -260,7 +263,7 @@
               section_id: section_id,
               share_label: block.settings.share_label,
               share_title: product.title,
-              share_permalink: share_url,
+              share_link: share_url,
               share_image: share_image
             -%}
 

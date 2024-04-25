@@ -219,8 +219,12 @@
 {%- endstyle -%}
 
 {%- unless settings.type_body_font.system? -%}
+  {% # theme-check-disable AssetPreload %}
   <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+  {% # theme-check-enable AssetPreload %}
 {%- endunless -%}
 {%- unless settings.type_header_font.system? -%}
+  {% # theme-check-disable AssetPreload %}
   <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+  {% # theme-check-enable AssetPreload %}
 {%- endunless -%}

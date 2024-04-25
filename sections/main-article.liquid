@@ -18,10 +18,12 @@
 
   assign article_alt = article_image.alt | default: article.title
 
+  # theme-check-disable UndefinedObject
   assign number_of_comments = article.comments_count
   if comment.status == 'pending'
     assign number_of_comments = article.comments_count | plus: 1
   endif
+  # theme-check-enable UndefinedObject
 -%}
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
@@ -37,7 +39,6 @@
             {%- endif -%}
             
             {%- for tag in article.tags -%}
-              {% if tag contains "_" %}{%- assign tag_starts_with = tag | slice: 0 -%}{% if tag_starts_with == "_" %}{% if tag_count %}{%- assign tag_count = tag_count | minus: 1 | at_least: 0 -%}{% endif %}{% continue %}{% endif %}{% endif %}
               <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="badge{% if badge_style %} badge--custom{% endif %} font-medium leading-none rounded-full"{% if badge_style %} style="{{ badge_style }}"{% endif %}>{{ tag }}</a>
             {%- endfor -%}
           {%- endif -%}
@@ -114,7 +115,10 @@
 
           {%- when 'share' -%}
             <div class="flex flex-wrap items-center justify-between" {{ block.shopify_attributes }}>
-              {%- render 'social-sharing', section_id: section.id, share_label: block.settings.share_label, share_title: article.title, share_permalink: article.url, share_image: article_image -%}
+              {%- liquid
+                assign article_url = request.origin | append: article.url
+                render 'social-sharing', section_id: section.id, share_label: block.settings.share_label, share_title: article.title, share_link: article_url, share_image: article_image
+              -%}
 
               {%- if block.settings.show_comments -%}
                 <span class="comment-count inline-flex items-center gap-2 text-sm">
@@ -220,11 +224,13 @@
                       </h3>
 
                       <ul class="grid gap-5">
+                        {% # theme-check-disable UndefinedObject %}
                         {%- if comment.status == 'pending' -%}
                           <li id="Comment-{{ comment.id }}" class="comment-card">
                             {%- render 'article-comment', comment: comment, show_gravatar: block.settings.show_gravatar -%}
                           </li>
                         {%- endif -%}
+                        {% # theme-check-enable UndefinedObject %}
           
                         {%- for comment in article.comments -%}
                           <li id="Comment-{{ comment.id }}" class="comment-card">
@@ -293,7 +299,9 @@
                           bottom right corner of the page.
                         {%- endcomment -%}
                         <div class="rte text-sm">
+                          {% # theme-check-disable TranslationKeyExists %}
                           {{- 'shopify.online_store.spam_detection.disclaimer_html' | t -}}
+                          {% # theme-check-enable TranslationKeyExists %}
                         </div>
                       </div>
                     {%- endform -%}

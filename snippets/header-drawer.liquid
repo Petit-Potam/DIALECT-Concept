@@ -31,10 +31,10 @@
             <li>
               {%- liquid
                 assign enable_mega_menu = false
-                assign link_title_handle = link.title | handle
+                assign link_title_handle = link.title | downcase | handle
           
                 for block in section.blocks
-                  assign menu_title_handle = block.settings.menu_title | handle
+                  assign menu_title_handle = block.settings.menu_title | downcase | handle
                   if menu_title_handle == link_title_handle
                     assign enable_mega_menu = true
                     assign mega_menu_block = block

@@ -42,12 +42,12 @@
       -%}
       <slider-element class="grid slider" selector=".card-grid>.card">
         <div class="blog-grid blog-collage with-only{{ articles_count }} card-grid mobile:card-grid--1 grid">
-          {%- if forloop.first -%}
-            {%- capture sizes -%}(max-width: 1023px) 100vw, calc(min(100vw, {{ settings.page_width }}px) * 0.65){%- endcapture -%}
-          {%- else -%}
-            {%- capture sizes -%}(max-width: 639px) 100vw, (max-width: 1023px) calc(100vw / 2 - 40px), (max-width: 1535px) calc(min(100vw, {{ settings.page_width }}px) / 3 - 40px) , calc(min(100vw, {{ settings.page_width }}px) / 3 - 80px) {%- endcapture -%}
-          {%- endif -%}
           {%- for article in blog.articles limit: section.settings.post_limit -%}
+            {%- if forloop.first -%}
+              {%- capture sizes -%}(max-width: 1023px) 100vw, calc(min(100vw, {{ settings.page_width }}px) * 0.65){%- endcapture -%}
+            {%- else -%}
+              {%- capture sizes -%}(max-width: 639px) 100vw, (max-width: 1023px) calc(100vw / 2 - 40px), (max-width: 1535px) calc(min(100vw, {{ settings.page_width }}px) / 3 - 40px) , calc(min(100vw, {{ settings.page_width }}px) / 3 - 80px) {%- endcapture -%}
+            {%- endif -%}
             {%- render 'article-card',
               article: article,
               sizes: sizes,
@@ -437,7 +437,11 @@
     }
   ],
   "disabled_on": {
-    "groups": ["footer", "header", "custom.overlay"]
+    "groups": [
+      "footer",
+      "header",
+      "custom.overlay"
+    ]
   }
 }
 {% endschema %}

@@ -127,7 +127,7 @@
 
                 {%- if block.settings.show_price -%}
                   <div id="Price-{{ section.id }}" class="product__price">
-                    {%- render 'product-price', product: product, use_variant: true, class: 'flex items-baseline gap-2 lg:flex-col xl:items-end lg:gap-1d5' -%}
+                    {%- render 'product-price', product: product, use_variant: true, class: 'flex flex-wrap items-baseline gap-2 lg:flex-col xl:items-end lg:gap-1d5' -%}
                   </div>
                 {%- endif -%}
 
@@ -150,7 +150,7 @@
               <div class="product__price grid gap-3" {{ block.shopify_attributes }}>
                 {%- unless title_block_show_price -%}
                   <div class="no-js-hidden" id="Price-{{ section.id }}">
-                    {%- render 'product-price', product: product, use_variant: true, class: 'flex items-baseline gap-2 lg:gap-1d5' -%}
+                    {%- render 'product-price', product: product, use_variant: true, class: 'flex flex-wrap items-baseline gap-2 lg:gap-1d5' -%}
                   </div>
 
                   {%- assign product_form_installment_id = 'ProductFormInstallment-' | append: section.id -%}
@@ -254,7 +254,7 @@
                   section_id: section.id,
                   share_label: block.settings.share_label,
                   share_title: product.title,
-                  share_permalink: share_url,
+                  share_link: share_url,
                   share_image: share_image
                 -%}
 
@@ -494,7 +494,7 @@
                 {%- endunless -%}
               </div>
               <div id="StickyPrice-{{ section.id }}">
-                {%- render 'product-price', product: product, use_variant: true, class: 'flex items-center gap-2 lg:gap-1d5' -%}
+                {%- render 'product-price', product: product, use_variant: true, class: 'flex flex-wrap items-center gap-2 lg:gap-1d5' -%}
               </div>
             </div>
 
@@ -518,15 +518,18 @@
             >
               <span class="btn-fill" data-fill></span>
               <span class="btn-text">
-                {%- liquid
-                  if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
-                    echo 'products.product.sold_out' | t
-                  elsif product.template_suffix != 'pre-order'
-                    echo 'products.product.add_to_cart' | t
-                  else
-                    echo 'products.product.pre_order' | t
-                  endif
-                -%}
+                {%- render 'icon', icon: 'cart', size: 'sm', class: 'md:hidden' -%}
+                <span class="hidden md:block" data-sold-out="{{ 'products.product.sold_out' | t | escape }}">
+                  {%- liquid
+                    if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
+                      echo 'products.product.sold_out' | t
+                    elsif product.template_suffix != 'pre-order'
+                      echo 'products.product.add_to_cart' | t
+                    else
+                      echo 'products.product.pre_order' | t
+                    endif
+                  -%}
+                </span>
               </span>
             </button>
           </div>

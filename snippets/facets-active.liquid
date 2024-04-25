@@ -45,8 +45,12 @@
                   endif
                 endif
 
-                if is_color
-                  render 'swatch', value: active_value.label, href: active_value.url_to_remove, title: active_value.label, class: 'pointer-events-none'
+                if is_color or filter.presentation == 'swatch'
+                  if filter.presentation == 'swatch'
+                    render 'swatch', value: active_value.value, href: active_value.url_to_remove, title: active_value.label, class: 'pointer-events-none', swatch: active_value.swatch
+                  else
+                    render 'swatch', value: active_value.label, href: active_value.url_to_remove, title: active_value.label, class: 'pointer-events-none'
+                  endif
                 endif
               -%}
             {%- endif -%}

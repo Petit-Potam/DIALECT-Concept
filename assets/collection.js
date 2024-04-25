@@ -79,6 +79,8 @@ class FacetForm extends HTMLFormElement {
 
     const drawer = document.getElementById('FacetDrawer');
     if (drawer) drawer.classList.remove('loading');
+
+    document.dispatchEvent(new CustomEvent('collection:reloaded'));
   }
 
   renderSection(url, event) {
@@ -146,11 +148,13 @@ class FacetForm extends HTMLFormElement {
 
     facetsToRender.forEach((element) => {
       const filter = document.querySelector(`[data-filter][data-index="${element.dataset.index}"]`);
-      if (filter.tagName === 'DETAILS') {
-        filter.querySelector('summary + *').innerHTML = element.querySelector('summary + *').innerHTML;
-      }
-      else {
-        filter.innerHTML = element.innerHTML;
+      if (filter !== null) {
+        if (filter.tagName === 'DETAILS') {
+          filter.querySelector('summary + *').innerHTML = element.querySelector('summary + *').innerHTML;
+        }
+        else {
+          filter.innerHTML = element.innerHTML;
+        }
       }
     });
   }

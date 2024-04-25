@@ -119,7 +119,7 @@
               {%- endif -%}
 
             {%- when 'content'-%}
-              <a class="hotspot flex items-center justify-center absolute cursor-pointer"{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% else %} role="link" aria-disabled="true"{% endif %} id="shopify-block-{{ block.id }}" {{ block.shopify_attributes }}>
+              <a class="hotspot flex items-center justify-center absolute cursor-pointer"{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% else %} role="link" aria-disabled="true" aria-controls="Hotspot-{{ block.id }}" aria-expanded="false"{% endif %} id="shopify-block-{{ block.id }}" {{ block.shopify_attributes }}>
                 {% if block.settings.heading != blank or block.settings.text != blank %}
                   <div class="hotspot__content hidden md:flex gap-2 items-center absolute z-1 pointer-events-none{% if block.settings.horizontal < 15 %} with-left{% elsif block.settings.horizontal > 85 %} with-right{% endif %}{% if block.settings.vertical > 70 %} with-bottom{% endif %}">
                     <div class="rte text-sm leading-none grid gap-2">
@@ -133,6 +133,32 @@
                   </div>
                 {% endif %}
               </a>
+              {% if block.settings.link == blank %}
+                <x-modal id="Hotspot-{{ block.id }}" class="x-modal drawer z-30 fixed bottom-0 left-0 h-full w-full pointer-events-none"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label="{{ block.settings.heading | escape }}"
+                  hidden
+                >
+                  <overlay-element class="overlay fixed-modal invisible opacity-0 fixed bottom-0 left-0 w-full h-screen pointer-events-none" aria-controls="Hotspot-{{ block.id }}" aria-expanded="false"></overlay-element>
+                  <div class="drawer__inner z-10 absolute top-0 flex flex-col w-full h-full overflow-hidden">
+                    <gesture-element class="drawer__header flex items-center justify-between opacity-0 invisible relative">
+                      <span class="drawer__title heading font-bold title-md">{{ block.settings.heading | escape }}</span>
+                      <button class="button button--secondary button--close drawer__close hidden sm:flex items-center justify-center" type="button" is="hover-button" aria-controls="Hotspot-{{ block.id }}" aria-expanded="false" aria-label="{{ 'general.accessibility.close' | t | escape }}">
+                        <span class="btn-fill" data-fill></span>
+                        <span class="btn-text">
+                          {%- render 'icon', icon: 'close', size: 'sm' -%}
+                        </span>
+                      </button>
+                    </gesture-element>
+                    <div class="drawer__content opacity-0 invisible flex flex-col h-full grow shrink">
+                      <div class="drawer__scrollable relative flex flex-col gap-5 md:gap-7 grow shrink">
+                        <div class="rte text-base md:text-lg">{{ block.settings.text }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </x-modal>
+              {%- endif -%}
           {%- endcase -%}
         {%- endfor -%}
       {%- endif -%}
@@ -617,6 +643,10 @@
       ]
     }
   ],
-  "templates": ["404", "article", "blog", "cart", "collection", "list-collections", "index", "page", "product", "search"]
+  "disabled_on": {
+    "templates": [
+      "password"
+    ]
+  }
 }
 {% endschema %}

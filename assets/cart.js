@@ -202,6 +202,12 @@ class CartItems extends HTMLElement {
         ? theme.a11y.trapFocus(miniCart, miniCart.querySelector('.horizontal-product__title'))
         : theme.a11y.trapFocus(mainCart, mainCart.querySelector('.cart__item-title'));
     }
+
+    document.dispatchEvent(new CustomEvent('cart:updated', {
+      detail: {
+        cart: event.cart
+      }
+    }));
   }
 
   onCartError(errors, target) {

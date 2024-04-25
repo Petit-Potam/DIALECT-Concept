@@ -26,7 +26,13 @@
             {%- if section.settings.enable_parallax %} data-parallax="0.3" data-parallax-dir="{{ section.settings.parallax_direction }}"{% endif -%}
           >
             <div class="media media--height block w-full h-full relative overflow-hidden">
-              {%- assign sizes = '(max-width: 767px) 100vw, 50vw' -%}
+              {%- liquid
+                assign sizes = '(max-width: 767px) 100vw, 50vw'
+                assign show_play_button = true
+                if section.settings.enable_video_autoplay
+                  assign show_play_button = false
+                endif
+              -%}
               {%- if section.settings.video_mobile or section.settings.video_url_mobile -%}
                 {%- render 'video',
                   sizes: sizes,
@@ -37,7 +43,7 @@
                   loop: section.settings.enable_video_looping,
                   description: section.settings.description,
                   cover_image: section.settings.cover_image_mobile,
-                  show_play_button: false,
+                  show_play_button: show_play_button,
                   is_mobile: true,
                   class: 'media media--height block w-full h-full relative overflow-hidden'
                 -%}
@@ -52,7 +58,7 @@
                 loop: section.settings.enable_video_looping,
                 description: section.settings.description,
                 cover_image: section.settings.cover_image,
-                show_play_button: false,
+                show_play_button: show_play_button,
                 class: 'media media--height block w-full h-full relative overflow-hidden'
               -%}
             </div>
@@ -946,7 +952,11 @@
     }
   ],
   "disabled_on": {
-    "groups": ["footer", "header", "custom.overlay"]
+    "groups": [
+      "footer",
+      "header",
+      "custom.overlay"
+    ]
   }
 }
 {% endschema %}

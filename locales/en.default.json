@@ -45,7 +45,7 @@
       "login_form_password": "Password",
       "login_form_error": "Wrong password!",
       "login_form_submit": "Enter",
-      "admin_link_html": "Are you the store owner? <a href=\"\/admin\" class=\"link\">Log in here<\/a>",
+      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"link\">Log in here</a>",
       "powered_by_shopify_html": "This shop will be powered by {{ shopify }}"
     },
     "breadcrumbs": {
@@ -205,9 +205,9 @@
       "remove": "Remove",
       "note": "Order note",
       "subtotal": "Subtotal",
-      "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping<\/a> calculated at checkout",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping</a> calculated at checkout",
       "taxes_included_but_shipping_at_checkout": "Tax included and shipping calculated at checkout",
-      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
+      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
       "taxes_and_shipping_at_checkout": "Taxes included and shipping calculated at checkout.",
       "update": "Update cart",
       "checkout": "Check out",
@@ -245,6 +245,7 @@
       "sort_by_label": "Sort by:"
     },
     "filtering": {
+      "filter_and_operator_subtitle": "Match all",
       "filter_button": "Show filters",
       "filter_by_label": "Filters",
       "filter_and_sort": "Filter and sort",
@@ -261,10 +262,10 @@
     }
   },
   "localization": {
-    "country_label": "Country\/region",
+    "country_label": "Country/region",
     "language_label": "Language",
     "update_language": "Update language",
-    "update_country": "Update country\/region",
+    "update_country": "Update country/region",
     "text_direction_trigger": "LTR"
   },
   "contact": {
@@ -304,9 +305,9 @@
       "address1": "Address 1",
       "address2": "Address 2",
       "city": "City",
-      "country": "Country\/region",
+      "country": "Country/region",
       "province": "Province",
-      "zip": "Postal\/ZIP code",
+      "zip": "Postal/ZIP code",
       "phone": "Phone",
       "set_default": "Set as default address",
       "add": "Add address",
@@ -442,8 +443,8 @@
     "inventory": {
       "in_stock": "In stock, ready to ship",
       "low_stock_html": {
-        "one": "Hurry, only <strong>{{ count }}<\/strong> item left in stock!",
-        "other": "Hurry, only <strong>{{ count }}<\/strong> items left in stock!"
+        "one": "Hurry, only <strong>{{ count }}</strong> item left in stock!",
+        "other": "Hurry, only <strong>{{ count }}</strong> items left in stock!"
       },
       "out_of_stock": "Out of stock",
       "out_of_stock_continue_selling": "In stock",
@@ -456,9 +457,9 @@
       "view_store_info": "View store information",
       "check_other_stores": "Check availability at other stores",
       "pick_up_available": "Pickup available",
-      "pick_up_available_at_html": "Pickup available at <span class=\"color-foreground\">{{ location_name }}<\/span>",
+      "pick_up_available_at_html": "Pickup available at <span class=\"color-foreground\">{{ location_name }}</span>",
       "pick_up_unavailable": "Pickup currently unavailable",
-      "pick_up_unavailable_at_html": "Pickup currently unavailable at <span class=\"color-foreground\">{{ location_name }}<\/span>",
+      "pick_up_unavailable_at_html": "Pickup currently unavailable at <span class=\"color-foreground\">{{ location_name }}</span>",
       "unavailable": "Couldn't load pickup availability",
       "refresh": "Refresh"
     }

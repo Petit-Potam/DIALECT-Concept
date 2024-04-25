@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Concept",
     "theme_author": "RoarTheme",
-    "theme_version": "1.3.1",
+    "theme_version": "1.4.1",
     "theme_documentation_url": "https:\/\/roartheme.co\/blogs\/concept",
     "theme_support_url": "https:\/\/haloroar.ticksy.com"
   },
@@ -876,6 +876,23 @@
         "step": 1,
         "label": "t:settings_schema.products.settings.max_color_swatches.label",
         "default": 4
+      },
+      {
+        "type": "select",
+        "id": "product_color_swatch_type",
+        "options": [
+          {
+            "value": "file",
+            "label": "t:settings_schema.products.settings.color_swatch_type.options__1.label"
+          },
+          {
+            "value": "variant",
+            "label": "t:settings_schema.products.settings.color_swatch_type.options__2.label"
+          }
+        ],
+        "default": "file",
+        "label": "t:settings_schema.products.settings.color_swatch_type.label",
+        "info": "t:settings_schema.products.settings.color_swatch_type.info"
       },
       {
         "type": "header",
