@@ -219,7 +219,7 @@ Product card is the product block displayed on collections lists and sliders
 }
 .product-card__title a {
   font-family: sequel45;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .product-card__filler {
   flex: 1;
