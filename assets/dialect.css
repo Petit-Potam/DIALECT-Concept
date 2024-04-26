@@ -218,6 +218,12 @@ Product card is the product block displayed on collections lists and sliders
 .product-card__details {
   justify-content: space-between;
 }
+.product-card__details .cust__product-card__title--desktop {
+  display: flex;
+}
+.product-card__details .cust__product-card__title--mobile {
+  display: none;
+}
 .product-card__reviews .jdgm-prev-badge {
   display: inline-block !important;
 }
@@ -279,13 +285,40 @@ Mobile adjustments for product card - Display in lists instead of cards
   .product-card__media .badges {
     width: 62%;
   }
+  .product-card__filler {
+    flex: 0;
+    display: none !important;
+  }
   .product-card__inspired-by {
     width: calc(100% - 3.5em);
+    font-size: 0.7em;
   }
   .product-card .quick-add {
     display: none;
   }
   .product-card .cust__quick-add--mobile {
     display: flex;
+  }
+  .product-card__details {
+    flex-direction: row;
+  }
+  .product-card__details .cust__product-card__title--desktop {
+    display: none !important;
+  }
+  .product-card__details .cust__product-card__title--mobile {
+    display: flex;
+  }
+  .product-card__details .price {
+    flex: 0;
+    text-align: right;
+    justify-content: end;
+    position: relative;
+    top: 1.5em;
+  }
+  .product-card__details .price .price__regular {
+    width: 100%;
+  }
+  .product-card__content {
+    padding: 0.5em;
   }
 }

@@ -294,6 +294,14 @@ Product card is the product block displayed on collections lists and sliders
 
     &__details{
         justify-content: space-between;
+
+        .cust__product-card__title--desktop{
+            display: flex;
+        }
+
+        .cust__product-card__title--mobile{
+            display: none;
+        }
     }
 
     &__reviews{
@@ -383,8 +391,14 @@ Mobile adjustments for product card - Display in lists instead of cards
             }
         }
 
+        &__filler{
+            flex: 0;
+            display: none !important; // Override display block from above
+        }
+
         &__inspired-by{
             width: calc(100% - 3.5em);
+            font-size: .7em;
         }
 
         .quick-add{
@@ -394,5 +408,52 @@ Mobile adjustments for product card - Display in lists instead of cards
         .cust__quick-add--mobile{
             display: flex;
         }
+
+        &__details{
+            flex-direction: row;
+
+            .cust__product-card__title--desktop{
+                display: none !important;
+            }
+
+            .cust__product-card__title--mobile{
+                display: flex;
+            }
+
+            .price{
+                flex: 0;
+                text-align: right;
+                justify-content: end;
+                position: relative;
+                top: 1.5em;
+
+                .price__regular{
+                    width: 100%;
+                }
+            }
+        }
+
+        &__content{
+            padding: .5em;
+        }
     }
+
+    // .slider{
+    //     .product-card{
+    //         &__details{
+    //             flex-direction: column;
+    
+    //             .price{
+    //                 text-align: inherit;
+    //                 justify-content: inherit;
+    //                 position: inherit;
+    //                 top: 0em;
+    
+    //                 .price__regular{
+    //                     width: auto;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }

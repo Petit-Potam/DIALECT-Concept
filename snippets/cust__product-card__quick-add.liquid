@@ -48,9 +48,11 @@
       </div>
     {%- endif -%}
   {%- else -%}
-    <div class="quick-add flex justify-center absolute w-full z-1 pointer-events-none">
+    {% comment %} START DIALECT - Hide the Sold Out label on mobile (conflict on desktop where it displayed twice) {% endcomment %}
+    {% comment %} <div class="quick-add flex justify-center absolute w-full z-1 pointer-events-none">
       <button type="button" class="button button--secondary button--blur" disabled="disabled">
         {{- 'products.product.sold_out' | t -}}
       </button>
-    </div>
+    </div> {% endcomment %}
+    {% comment %} END DIALECT - Hide the Sold Out label on mobile (conflict on desktop where it displayed twice) {% endcomment %}
   {%- endif -%}

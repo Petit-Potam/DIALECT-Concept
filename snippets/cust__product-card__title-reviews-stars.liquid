@@ -4,8 +4,14 @@
       <span class="product-card__reviews--count">({{ product.metafields.reviews.rating_count }})</span>
 
       <p class="product-card__title grow">
-        <a class="reversed-link text-base-xl font-medium leading-tight" href="{{ product_url }}">
-          {{- product.title | escape -}}
+        <a class="cust__product-card__title--desktop reversed-link text-base-xl font-medium leading-tight" href="{{ product_url }}">
+          {% comment %} {{- product.title | escape -}} {% endcomment %}
+          {{ product.title | escape }}
+        </a>
+
+        <a class="cust__product-card__title--mobile reversed-link text-base-xl font-medium leading-tight" href="{{ product_url }}">
+          {% comment %} {{- product.title | escape -}} {% endcomment %}
+          {{ product.title | escape | split: ' ' | join: '<br>' }}
         </a>
       </p>
     </div>

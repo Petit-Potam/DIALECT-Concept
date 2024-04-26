@@ -16,6 +16,9 @@
         </b>
     {% endcase %}
     <span>{{ product.metafields.facebook.custom_label_0 }}</span></p>
+    
+    {% comment %} Hide retail price on product cards
     <p><span class="product-card__retail-price">(Retail Price: {{ product.metafields.pdp.retail_price | metafield_tag | split:' GBP'}})</span></p>
+    {% endcomment %}
     {% endif %}
 </div>
