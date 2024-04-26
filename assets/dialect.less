@@ -461,10 +461,21 @@ Mobile adjustments for product card - Display in lists instead of cards
 COLLECTION PAGE
 Collection page is the page where all products are displayed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#shopify-section-template--16722740740255__custom_liquid_wnYJia{
+    .section{
+        .page-width{
+            padding: 0;
+        }
+    }
+}
+
 .cust__gender-filter{
     ul{
         display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
         list-style: none;
+        padding: 0 20px 20px 20px;
 
         li{
             a{
@@ -473,6 +484,7 @@ Collection page is the page where all products are displayed
                 margin-right: 1em;
                 border: solid 1px #000000;
                 border-radius: 100px;
+                font-weight: 600;
 
                 span:first-child{
                     width: 1em;
