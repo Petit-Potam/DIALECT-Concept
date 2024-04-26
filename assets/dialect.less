@@ -438,22 +438,16 @@ Mobile adjustments for product card - Display in lists instead of cards
         }
     }
 
-    // .slider{
-    //     .product-card{
-    //         &__details{
-    //             flex-direction: column;
-    
-    //             .price{
-    //                 text-align: inherit;
-    //                 justify-content: inherit;
-    //                 position: inherit;
-    //                 top: 0em;
-    
-    //                 .price__regular{
-    //                     width: auto;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    .slider{
+        .product-card{
+            &__content{
+                padding: 1em;
+            }
+
+            &__filler{
+                flex: 1;
+                display: block !important; // Override display block from above
+            }
+        }
+    }
 }
