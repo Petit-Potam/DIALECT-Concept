@@ -245,6 +245,12 @@ Product card is the product block displayed on collections lists and sliders
 .product-card__inspired-by span {
   font-weight: 400;
 }
+.product-card .cust__quick-add--mobile {
+  display: none;
+}
+.product-card .cust__quick-add--desktop:not(.cust__quick-add--mobile) {
+  display: flex;
+}
 .product-card__retail-price {
   color: #EE7103;
 }
@@ -275,5 +281,11 @@ Mobile adjustments for product card - Display in lists instead of cards
   }
   .product-card__inspired-by {
     width: calc(100% - 3.5em);
+  }
+  .product-card .quick-add {
+    display: none;
+  }
+  .product-card .cust__quick-add--mobile {
+    display: flex;
   }
 }

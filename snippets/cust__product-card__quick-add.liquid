@@ -1,6 +1,6 @@
 {%- if product.available -%}
     {%- if show_quick_add -%}
-      <div class="quick-add flex justify-end md:justify-center absolute w-full z-1 pointer-events-none">
+      <div class="cust__quick-add--mobile quick-add flex justify-end md:justify-center absolute w-full z-1 pointer-events-none">
         {%- if product.variants.size == 1 -%}
           {%- capture product_form_id -%}QuickAddProductForm-{{ section_id }}-{{ product.id }}{%- endcapture -%}
           {%- form 'product', product, is: 'product-form', id: product_form_id -%}
