@@ -285,6 +285,9 @@ Mobile adjustments for product card - Display in lists instead of cards
   .product-card__media .badges {
     width: 62%;
   }
+  .product-card__media .badges .badge {
+    padding: var(--sp-1) var(--sp-1d5);
+  }
   .product-card__filler {
     flex: 0;
     display: none !important;
