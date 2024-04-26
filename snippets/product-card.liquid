@@ -231,7 +231,7 @@
 
       <div class="product-card__details flex flex-col lg:flex-row items-baseline gap-2 w-full">
         {% comment %}START Dialect Custom - Display product's title and reviews on product card{% endcomment %}
-        {%  render 'cust__product-card__title-reviews-stars', widget_type: 'judgeme_preview_badge', concierge_install: true, product: product %}
+        {%  render 'cust__product-card__title-reviews-stars', product: product %}
         {% comment %}END Dialect Custom - Display product's title reviews on product card{% endcomment %}  
         {%- render 'product-price', product: product, class: 'flex flex-wrap lg:flex-col lg:items-end gap-2 md:gap-1d5' -%}
       </div>
