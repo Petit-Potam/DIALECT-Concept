@@ -1,6 +1,7 @@
 <!-- Start of Judge.me code -->
     <div class='product-card__reviews dgm-widget jdgm-preview-badge'>
       {{ product.metafields.judgeme.badge }}
+      <span class="product-card__reviews--count">({{ product.metafields.reviews.rating_count }})</span>
 
       <p class="product-card__title grow">
         <a class="reversed-link text-base-xl font-medium leading-tight" href="{{ product_url }}">

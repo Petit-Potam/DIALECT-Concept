@@ -218,6 +218,12 @@ Product card is the product block displayed on collections lists and sliders
 .product-card__details {
   justify-content: space-between;
 }
+.product-card__reviews .jdgm-prev-badge {
+  display: inline-block !important;
+}
+.product-card__reviews--count {
+  font-size: 0.7em;
+}
 .product-card__title {
   padding-top: 0.5em;
 }
