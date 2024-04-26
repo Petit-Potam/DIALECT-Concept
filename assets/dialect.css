@@ -221,10 +221,6 @@ Product card is the product block displayed on collections lists and sliders
 .product-card__title {
   padding-top: 0.5em;
 }
-.product-card__title a {
-  font-family: sequel45;
-  font-size: 1.2em;
-}
 .product-card__filler {
   flex: 1;
   display: block !important;
@@ -266,5 +262,8 @@ Mobile adjustments for product card - Display in lists instead of cards
   }
   .product-card__media .badges {
     width: 62%;
+  }
+  .product-card__inspired-by {
+    width: calc(100% - 4em);
   }
 }

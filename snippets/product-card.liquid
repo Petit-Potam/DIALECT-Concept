@@ -121,6 +121,8 @@
           {%- endunless -%}
         </a>
 
+        {% comment %} START DIALECT - Hide Quick Add to cart button on media (we display it on the details) {% endcomment %}
+        {% comment %}
         {%- if product.available -%}
           {%- if show_quick_add -%}
             <div class="quick-add flex justify-end md:justify-center absolute w-full z-1 pointer-events-none">
@@ -177,6 +179,8 @@
             </button>
           </div>
         {%- endif -%}
+        {% endcomment %}
+        {% comment %} END DIALECT - Hide Quick Add to cart button on media (we display it on the details) {% endcomment %}
 
         {%- if show_countdown and product.metafields.theme.countdown.value != blank -%}
           {%- liquid
@@ -307,6 +311,10 @@
           {%- endif -%}
         {%- endfor -%}
       {%- endif -%}
+
+      {% comment %}START DIALECT - Add Quick Add to Cart button on product card{% endcomment %}
+      {%  render 'cust__product-card__quick-add', product: product, section_id: section_id, show_quick_add: show_quick_add, mobile_quick_add: mobile_quick_add %}
+      {% comment %}END DIALECT - Add Quick Add to Cart button on product card{% endcomment %}
     </div>
 
     {%- if show_quick_add and mobile_quick_add -%}
