@@ -1,0 +1,58 @@
+{%- if product.available -%}
+    {%- if show_quick_add -%}
+      <div class="cust__quick-add--mobile quick-add flex justify-end md:justify-center absolute w-full z-1 pointer-events-none">
+        {%- if product.variants.size == 1 -%}
+          {%- capture product_form_id -%}QuickAddProductForm-{{ section_id }}-{{ product.id }}{%- endcapture -%}
+          {%- form 'product', product, is: 'product-form', id: product_form_id -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+            {%- liquid
+              if product.template_suffix != 'pre-order'
+                assign quick_add_label = 'products.product.add_to_cart' | t
+              else
+                assign quick_add_label = 'products.product.pre_order' | t
+              endif
+            -%}
+            <button type="submit" class="button button--primary pointer-events-auto md:opacity-0" is="hover-button" data-variant-id="{{ product.selected_or_first_available_variant.id }}" aria-label="{{ quick_add_label | escape }}">
+              <span class="btn-fill" data-fill></span>
+              <span class="btn-text">
+                {%- render 'icon', icon: 'cart', size: 'sm', class: 'md:hidden' -%}
+                <span class="hidden md:block" data-sold-out="{{ 'products.product.sold_out' | t | escape }}">
+                  {{- quick_add_label -}}
+                </span>
+              </span>
+            </button>
+          {%- endform -%}
+        {%- else -%}
+          {%- if show_quick_view -%}
+            <button type="button" class="button button--primary pointer-events-auto md:opacity-0" is="hover-button" aria-controls="Quickview-{{ section_id }}-{{ product.id }}" aria-expanded="false" aria-label="{{ 'products.product.choose_options' | t | escape }}">
+              <span class="btn-fill" data-fill></span>
+              <span class="btn-text">
+                {%- render 'icon', icon: 'cart', size: 'sm', class: 'md:hidden' -%}
+                <span class="hidden md:block">
+                  {{- 'products.product.choose_options' | t -}}
+                </span>
+              </span>
+            </button>
+          {%- else -%}
+            <a href="{{ product_url }}" class="button button--primary pointer-events-auto md:opacity-0" is="hover-link" aria-label="{{ 'products.product.view_product' | t | escape }}">
+              <span class="btn-fill" data-fill></span>
+              <span class="btn-text">
+                {%- render 'icon', icon: 'cart', size: 'sm', class: 'md:hidden' -%}
+                <span class="hidden md:block">
+                  {{- 'products.product.view_product' | t -}}
+                </span>
+              </span>
+            </a>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    {% comment %} START DIALECT - Hide the Sold Out label on mobile (conflict on desktop where it displayed twice) {% endcomment %}
+    {% comment %} <div class="quick-add flex justify-center absolute w-full z-1 pointer-events-none">
+      <button type="button" class="button button--secondary button--blur" disabled="disabled">
+        {{- 'products.product.sold_out' | t -}}
+      </button>
+    </div> {% endcomment %}
+    {% comment %} END DIALECT - Hide the Sold Out label on mobile (conflict on desktop where it displayed twice) {% endcomment %}
+  {%- endif -%}

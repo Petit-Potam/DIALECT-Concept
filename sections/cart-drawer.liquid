@@ -150,6 +150,9 @@
                                 <p class="text-xs text-opacity">{{ item.product.vendor }}</p>
                               {%- endif -%}
                               <a href="{{ item.url }}" class="horizontal-product__title reversed-link font-medium text-base leading-tight">{{ item.product.title | escape }}</a>
+                              {% comment %}START DIALECT - Add inspiration in the product line in the cart{% endcomment %}
+                              {% render 'cust__cart__product-item__inspired-by' product: item.product %}
+                              {% comment %}END DIALECT - Add inspiration in the product line in the cart{% endcomment %}
                             </div>
 
                             {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != null -%}

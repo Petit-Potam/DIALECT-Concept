@@ -1,0 +1,16 @@
+<div class="product-card__inspired-by">
+    {% if product.metafields.custom.inspired_by_et_retail_price.value %}
+        <p class="product-card__inspired-by__text">
+            Inspired by 
+            <b>
+                {% case product.metafields.custom.inspiration_brand | split:'' | last %}
+                    {% when 's' %}
+                        {{ product.metafields.custom.inspiration_brand }}'
+                    {% else %}
+                        {{ product.metafields.custom.inspiration_brand }}'s
+                {% endcase %}
+            </b> 
+            <span>{{ product.metafields.facebook.custom_label_0 }}</span>
+        </p>    
+    {% endif %}
+</div>

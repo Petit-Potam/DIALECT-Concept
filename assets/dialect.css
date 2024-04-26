@@ -1,0 +1,367 @@
+/*=============================================
+=            Dialect Specific CSS            =
+=                    FONTS                   =
+=============================================*/
+@font-face {
+  font-family: "Sequel45";
+  src: url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-45.otf?v=1702914807") format("opentype"), url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-45.ttf?v=1702914807") format("truetype"), url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-45.woff2?v=1702914807") format("woff2");
+}
+@font-face {
+  font-family: "Sequel75";
+  src: url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-75.otf?v=1709226072") format("opentype"), url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-75.ttf?v=1709226071") format("truetype"), url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-75.woff2?v=1709226071") format("woff2");
+}
+h0,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h0,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Sequel75" !important;
+}
+/*=============================================
+=            Dialect Specific CSS            =
+=                  GENERAL                   =
+=============================================*/
+.dialect__sequel45 {
+  font-family: "Sequel45";
+}
+.dialect__font-bold {
+  font-weight: 700;
+}
+.dialect__color-primary {
+  color: rgb(var(--dialect-primary));
+}
+/*=============================================
+=            Dialect Specific CSS            =
+=               Product page                 =
+=============================================*/
+#shopify-section-template--16446223515807__a9eb68f7-cb49-4083-83d4-679a99363fd0 .section {
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+#shopify-section-template--16446223515807__a9eb68f7-cb49-4083-83d4-679a99363fd0 .section .breadcrumbs {
+  padding: 1em;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.05);
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PRODUCT INFO
+Product info is the block of information on the right side of the product page (price, description, buy button etc)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.product-info__liquid {
+  margin: 0;
+}
+.product-info__title-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1em;
+  margin-bottom: 1em;
+}
+.product-info__title-price .wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.product-info__title-price .wrapper .title {
+  font-size: var(--text-h2);
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 0.2em;
+}
+.product-info__title-price .wrapper .price {
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.product-info__title-price .wrapper .price .product-info__price {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.product-info__title-price .wrapper .price .product-info__price sale-price {
+  font-size: 0.6em;
+}
+.product-info__inspired-by {
+  padding: 0 1em;
+}
+.product-info__inspired-by span {
+  color: #EE7103;
+  font-weight: 700;
+}
+.product-info__product-scent {
+  padding: 0 1em;
+}
+.product-info__product-scent span {
+  display: inline;
+  font-weight: 600;
+}
+.product-info__product-scent ul {
+  display: inline;
+}
+.product-info__product-scent ul li {
+  display: inline;
+}
+.product-info__product-scent ul li:not(:last-child)::after {
+  content: ', ';
+  display: inline;
+}
+.product-info .jdgm-widget {
+  padding: 0 1em;
+}
+.product-info__buy-buttons {
+  margin-bottom: 1em;
+}
+.product-info__payment-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+.product-info__payment-icons svg {
+  width: 26px;
+  filter: saturate(0);
+}
+.product-info__keypoints-band {
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 10px;
+}
+.product-info__keypoints-band .wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8em;
+}
+.product-info__keypoints-band .wrapper .keypoint {
+  display: flex;
+  flex-direction: column;
+  width: 33.33%;
+  padding: 0.2em;
+  align-items: center;
+  text-align: center;
+}
+.product-info__keypoints-band .wrapper .keypoint .keypoint-img {
+  width: 60px;
+  height: auto;
+}
+.product-info__keypoints-band .wrapper .keypoint .keypoint-text {
+  margin-top: 0.2em;
+}
+.product-info__keypoints-band .wrapper .keypoint .keypoint-text p {
+  font-size: 0.8em;
+}
+.product-info__keypoints-band .wrapper .keypoint .keypoint-text p:first-child {
+  font-weight: 700;
+}
+.product-info__product-keypoints-list tr td {
+  width: auto;
+  max-width: 100%;
+  padding: 0.2em 0 0.2em 0.2em;
+  border: none;
+  white-space: nowrap;
+  vertical-align: middle !important;
+  text-align: left;
+  font-weight: 700;
+}
+.product-info__product-keypoints-list tr td img {
+  width: 20px;
+  height: auto;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PRODUCT CARD
+Product card is the product block displayed on collections lists and sliders
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.product-card__media .badges {
+  inset-block-start: var(--sp-2);
+  inset-inline-start: var(--sp-2);
+  gap: var(--sp-1);
+  display: flex;
+  flex-wrap: wrap;
+  width: 60%;
+}
+.product-card__media .badges.cust_badges-right {
+  flex-direction: row-reverse;
+  right: var(--sp-2);
+  left: auto;
+  width: 40%;
+}
+.product-card__media .badges .badge {
+  padding: var(--sp-1) var(--sp-2);
+  font-size: 0.7em;
+  font-weight: 400;
+}
+.product-card__media .badges .badge.Women {
+  background-color: darksalmon;
+}
+.product-card__media .badges .badge.Men {
+  background-color: darkseagreen;
+}
+.product-card__media .badges .badge.Unisex {
+  background-color: darkkhaki;
+}
+.product-card__media .badges .badge.Bestseller {
+  background-color: black;
+}
+.product-card__content {
+  display: flex;
+  flex-flow: column;
+  padding: 1em;
+  min-height: 144px;
+}
+.product-card__details {
+  justify-content: space-between;
+}
+.product-card__details .cust__product-card__title--desktop {
+  display: flex;
+}
+.product-card__details .cust__product-card__title--mobile {
+  display: none;
+}
+.product-card__reviews .jdgm-prev-badge {
+  display: inline-block !important;
+}
+.product-card__reviews--count {
+  font-size: 0.7em;
+}
+.product-card__title {
+  padding-top: 0.5em;
+}
+.product-card__title a {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.product-card__filler {
+  flex: 1;
+  display: block !important;
+}
+.product-card__inspired-by {
+  padding-top: 0.5em;
+  font-size: 0.8em;
+}
+.product-card__inspired-by__text {
+  padding-bottom: 0.2em;
+}
+.product-card__inspired-by span {
+  font-weight: 400;
+}
+.product-card .cust__quick-add--mobile {
+  display: none;
+}
+.product-card .cust__quick-add--desktop:not(.cust__quick-add--mobile) {
+  display: flex;
+}
+.product-card__retail-price {
+  color: #EE7103;
+}
+.product-card .price-list sale-price {
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--button-background-primary);
+}
+.product-card .jdgm-prev-badge {
+  font-size: 0.7em;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PRODUCT CARD MOBILE
+Mobile adjustments for product card - Display in lists instead of cards
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media screen and (max-width: 639px) {
+  .collection .card-grid .card.product-card:not(.product-card--promo) {
+    display: flex;
+  }
+  .collection .card-grid .card.product-card:not(.product-card--promo) .product-card__media {
+    width: 45%;
+  }
+  .collection .card-grid .card.product-card:not(.product-card--promo) .product-card__content {
+    width: 55%;
+  }
+  .product-card__media .badges {
+    width: 62%;
+  }
+  .product-card__media .badges .badge {
+    padding: var(--sp-1) var(--sp-1d5);
+  }
+  .product-card__filler {
+    flex: 0;
+    display: none !important;
+  }
+  .product-card__inspired-by {
+    width: calc(100% - 3.5em);
+    font-size: 0.7em;
+  }
+  .product-card .quick-add {
+    display: none;
+  }
+  .product-card .cust__quick-add--mobile {
+    display: flex;
+  }
+  .product-card__details {
+    flex-direction: row;
+  }
+  .product-card__details .cust__product-card__title--desktop {
+    display: none !important;
+  }
+  .product-card__details .cust__product-card__title--mobile {
+    display: flex;
+  }
+  .product-card__details .price {
+    flex: 0;
+    text-align: right;
+    justify-content: end;
+    position: relative;
+    top: 1.5em;
+  }
+  .product-card__details .price .price__regular {
+    width: 100%;
+  }
+  .product-card__content {
+    padding: 0.5em;
+  }
+  .slider .product-card__content {
+    padding: 1em;
+  }
+  .slider .product-card__filler {
+    flex: 1;
+    display: block !important;
+  }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+COLLECTION PAGE
+Collection page is the page where all products are displayed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.cust__gender-filter ul {
+  display: flex;
+  list-style: none;
+}
+.cust__gender-filter ul li a {
+  display: flex;
+  padding: 0.8em 1.5em;
+  margin-right: 1em;
+  border: solid 1px #000000;
+  border-radius: 100px;
+}
+.cust__gender-filter ul li a span:first-child {
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5em;
+  border-radius: 100%;
+}
+.cust__gender-filter ul li a.link--all > span:first-child {
+  background-color: darkgray;
+}
+.cust__gender-filter ul li a.link--women > span:first-child {
+  background-color: darksalmon;
+}
+.cust__gender-filter ul li a.link--men > span:first-child {
+  background-color: darkseagreen;
+}
+.cust__gender-filter ul li a.link--unisex > span:first-child {
+  background-color: darkkhaki;
+}

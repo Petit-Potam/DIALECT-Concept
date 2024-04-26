@@ -1,0 +1,502 @@
+/*=============================================
+=            Dialect Specific CSS            =
+=                    FONTS                   =
+=============================================*/
+@font-face {
+    font-family: "Sequel45";
+    src: url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-45.otf?v=1702914807")
+        format("opentype"),
+      url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-45.ttf?v=1702914807")
+        format("truetype"),
+      url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-45.woff2?v=1702914807")
+        format("woff2");
+  }
+
+  @font-face {
+    font-family: "Sequel75";
+    src: url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-75.otf?v=1709226072")
+        format("opentype"),
+      url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-75.ttf?v=1709226071")
+        format("truetype"),
+      url("https://cdn.shopify.com/s/files/1/0616/6734/4543/files/Sequel100Black-75.woff2?v=1709226071")
+        format("woff2");
+  }
+  
+  h0,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .h0,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    font-family: "Sequel75" !important;
+  }
+
+/*=============================================
+=            Dialect Specific CSS            =
+=                  GENERAL                   =
+=============================================*/
+.dialect{
+    &__sequel45{font-family: "Sequel45";}
+    &__font-bold{font-weight: 700;}
+    &__color-primary{color: rgb(var(--dialect-primary));}
+}
+
+
+/*=============================================
+=            Dialect Specific CSS            =
+=               Product page                 =
+=============================================*/
+
+#shopify-section-template--16446223515807__a9eb68f7-cb49-4083-83d4-679a99363fd0{
+    .section{
+        padding-top: 1em;
+        padding-bottom: 2em;;
+
+        .breadcrumbs{
+            padding: 1em;
+            border-bottom: solid 1px rgba(0,0,0,.05);
+            // border-radius: 10px;
+            // background-color: white;
+        }
+    }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PRODUCT INFO
+Product info is the block of information on the right side of the product page (price, description, buy button etc)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.product-info{
+    // Miscellaneous
+    &__liquid{margin: 0}; // Remove margin from liquid container in product info
+
+    // INFO - Title and Price
+    &__title-price{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1em;
+        margin-bottom: 1em;
+
+        .wrapper{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            
+            .title{
+                font-size: var(--text-h2);
+                line-height: 1.1;
+                font-weight: 700;
+                margin-bottom: .2em;
+            }
+    
+            .price{
+                font-size: var(--text-h3);
+                font-weight: 700;
+                color: var(--text-primary);
+
+                .product-info__price{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: end;
+
+                    sale-price{
+                        font-size: 0.6em;
+                    }
+                }
+            }
+        }
+    }
+
+     // INFO - Inspired by
+     &__inspired-by{
+        padding: 0 1em;
+        
+        span{
+            color: #EE7103;
+            font-weight: 700;
+        }
+    }
+
+    // INFO - Product scents
+    &__product-scent{
+        padding: 0 1em;
+        // padding: .4em .8em;
+        // border-radius: 100px;
+        // background: white;
+
+        span{
+            display: inline;
+            font-weight: 600;
+        }
+
+        ul{
+            display: inline;
+
+            li{
+                display: inline;
+
+                &:not(:last-child)::after{
+                    content: ', ';
+                    display: inline;
+            }
+        }
+      }
+    }
+
+
+    // INFO - JudgeMe stars reviews
+    .jdgm-widget{
+        padding: 0 1em;
+    }
+      
+
+    // CTA - Buy button
+    &__buy-buttons{
+        margin-bottom: 1em;
+    }
+
+    // CRO - Payment options logos under the buy button
+    &__payment-icons{
+        display: flex;
+        justify-content: center;
+        margin-top: .5em;
+        svg{
+            width: 26px;
+            filter: saturate(0);
+        }
+    }
+
+
+   
+    &__keypoints-band{
+        justify-content: space-around;
+        background-color: white;
+        border-radius: 10px;
+
+        .wrapper{
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8em;
+
+            .keypoint{
+                display: flex;
+                flex-direction: column;
+                width: 33.33%;
+                padding: .2em;
+                align-items: center;
+                text-align: center;
+
+                .keypoint-img{
+                    width: 60px;
+                    height: auto;
+                }
+
+                .keypoint-text{
+                    margin-top:.2em;
+
+                    p{
+                        font-size: 0.8em;
+                        
+                        &:first-child{
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // CRO - Product keypoints under the buy button (free shipping, 30 day return etc)
+    &__product-keypoints-list{
+        tr{
+            td{
+                width: auto;
+                max-width:100%;
+                padding: .2em 0 .2em 0.2em;
+                border: none;
+                white-space:nowrap;
+                vertical-align: middle !important;
+                text-align: left;
+                font-weight: 700;
+
+                img{
+                    width: 20px;
+                    height: auto;
+                }
+            }
+        }
+    }
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PRODUCT CARD
+Product card is the product block displayed on collections lists and sliders
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.product-card{
+    &__media{
+        .badges{
+            inset-block-start: var(--sp-2);
+            inset-inline-start: var(--sp-2);
+            gap: var(--sp-1);
+            display: flex;
+            flex-wrap: wrap;
+            width: 60%;
+
+            &.cust_badges-right{
+                flex-direction: row-reverse;
+                right: var(--sp-2);
+                left: auto;
+                width: 40%;
+            }
+
+            .badge{
+                padding: var(--sp-1) var(--sp-2);
+                font-size: 0.7em;
+                font-weight: 400;
+
+                &.Women{
+                    background-color: darksalmon;
+                }
+
+                &.Men{
+                    background-color: darkseagreen;
+                }
+
+                &.Unisex{
+                    background-color: darkkhaki;
+                }
+
+                &.Bestseller{
+                    background-color: black;
+                }
+            }
+        }
+    }
+
+    &__content{
+        display: flex;
+        flex-flow: column;
+        padding: 1em;
+        min-height: 144px;
+    }
+
+    &__details{
+        justify-content: space-between;
+
+        .cust__product-card__title--desktop{
+            display: flex;
+        }
+
+        .cust__product-card__title--mobile{
+            display: none;
+        }
+    }
+
+    &__reviews{
+        .jdgm-prev-badge{
+            display: inline-block !important;
+        }
+
+        &--count{
+            font-size: .7em;
+        }
+    }
+
+    &__title{
+        padding-top: .5em;
+
+        a{
+            text-transform: uppercase;
+            font-weight: 600;;
+        }
+    }
+
+    &__filler{
+        flex: 1;
+        display: block !important; // Override display none from script which add display none to empty divs
+    }
+
+    &__inspired-by{
+        padding-top: .5em;
+        font-size: .8em;
+
+        &__text{
+            padding-bottom: .2em;
+        }
+
+        span{
+            //color: #EE7103;
+            font-weight: 400;
+        }
+    }
+
+    .cust__quick-add--mobile{
+        display: none;
+    }
+
+    .cust__quick-add--desktop:not(.cust__quick-add--mobile){
+        display: flex;
+    }
+    
+
+    &__retail-price{
+        color: #EE7103;
+    }
+
+    .price-list sale-price{
+        font-size: 1em;
+        font-weight: 700;
+        color: var(--button-background-primary);
+    }
+
+    .jdgm-prev-badge{
+        font-size: .7em;
+    }
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PRODUCT CARD MOBILE
+Mobile adjustments for product card - Display in lists instead of cards
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media screen and (max-width: 639px) {    
+    .collection .card-grid .card.product-card:not(.product-card--promo){
+        display: flex;
+
+        .product-card__media{
+            width: 45%;
+        }
+
+        .product-card__content{
+            width: 55%;
+        }
+    }
+
+    .product-card{
+        &__media{
+            .badges{
+                width: 62%;
+
+                .badge{
+                    padding: var(--sp-1) var(--sp-1d5);
+                }
+            }
+        }
+
+        &__filler{
+            flex: 0;
+            display: none !important; // Override display block from above
+        }
+
+        &__inspired-by{
+            width: calc(100% - 3.5em);
+            font-size: .7em;
+        }
+
+        .quick-add{
+            display: none;
+        }
+    
+        .cust__quick-add--mobile{
+            display: flex;
+        }
+
+        &__details{
+            flex-direction: row;
+
+            .cust__product-card__title--desktop{
+                display: none !important;
+            }
+
+            .cust__product-card__title--mobile{
+                display: flex;
+            }
+
+            .price{
+                flex: 0;
+                text-align: right;
+                justify-content: end;
+                position: relative;
+                top: 1.5em;
+
+                .price__regular{
+                    width: 100%;
+                }
+            }
+        }
+
+        &__content{
+            padding: .5em;
+        }
+    }
+
+    .slider{
+        .product-card{
+            &__content{
+                padding: 1em;
+            }
+
+            &__filler{
+                flex: 1;
+                display: block !important; // Override display block from above
+            }
+        }
+    }
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+COLLECTION PAGE
+Collection page is the page where all products are displayed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.cust__gender-filter{
+    ul{
+        display: flex;
+        list-style: none;
+
+        li{
+            a{
+                display: flex;
+                padding: 0.8em 1.5em;
+                margin-right: 1em;
+                border: solid 1px #000000;
+                border-radius: 100px;
+
+                span:first-child{
+                    width: 1em;
+                    height: 1em;
+                    margin-right: .5em;
+                    border-radius: 100%;
+                }
+
+                &.link--all>span:first-child{
+                    background-color: darkgray;
+                }
+
+                &.link--women>span:first-child{
+                    background-color: darksalmon;
+                }
+
+                &.link--men>span:first-child{
+                    background-color: darkseagreen;
+                }
+
+                &.link--unisex>span:first-child{
+                    background-color: darkkhaki;
+                }
+            }
+        }
+    }
+}
