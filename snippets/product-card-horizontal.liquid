@@ -25,6 +25,9 @@
           <p class="text-xs text-opacity">{{ product.vendor }}</p>
         {%- endif -%}
         <a href="{{ product.url }}" class="horizontal-product__title reversed-link font-medium text-base leading-tight">{{ product.title | escape }}</a>
+        {% comment %}START DIALECT - Add inspiration in the product line in the product card horizontal (recommendations){% endcomment %}
+        {% render 'cust__cart__product-item__inspired-by' product: product %}
+        {% comment %}END DIALECT - Add inspiration in the product line in the product card horizontal (recommendations){% endcomment %}
       </div>
     </div>
     
