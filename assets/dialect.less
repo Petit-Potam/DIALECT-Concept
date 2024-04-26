@@ -455,3 +455,48 @@ Mobile adjustments for product card - Display in lists instead of cards
         }
     }
 }
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+COLLECTION PAGE
+Collection page is the page where all products are displayed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.cust__gender-filter{
+    ul{
+        display: flex;
+        list-style: none;
+
+        li{
+            a{
+                display: flex;
+                padding: 0.8em 1.5em;
+                margin-right: 1em;
+                border: solid 1px #000000;
+                border-radius: 100px;
+
+                span:first-child{
+                    width: 1em;
+                    height: 1em;
+                    margin-right: .5em;
+                    border-radius: 100%;
+                }
+
+                &.link--all>span:first-child{
+                    background-color: darkgray;
+                }
+
+                &.link--women>span:first-child{
+                    background-color: darksalmon;
+                }
+
+                &.link--men>span:first-child{
+                    background-color: darkseagreen;
+                }
+
+                &.link--unisex>span:first-child{
+                    background-color: darkkhaki;
+                }
+            }
+        }
+    }
+}
