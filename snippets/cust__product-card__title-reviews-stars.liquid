@@ -1,6 +1,6 @@
 <!-- Start of Judge.me code -->
     <div class='product-card__reviews dgm-widget jdgm-preview-badge'>
-      {{ product.metafields.judgeme.badge }}
+      {% render 'cust__judgeme-widgets', widget_type: 'judgeme_preview_badge', concierge_install: true, product: product %}
 
       <p class="product-card__title grow">
         <a class="reversed-link text-base-xl font-medium leading-tight" href="{{ product_url }}">
