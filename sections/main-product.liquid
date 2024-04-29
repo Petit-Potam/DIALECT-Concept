@@ -121,9 +121,16 @@
             
             {%- when 'title' -%}
               <div class="product__title{% if block.settings.show_price %} with-price{% endif %}" {{ block.shopify_attributes }}>
-                <h1 class="leading-none font-bold {{ block.settings.title_size }} mobile:{{ block.settings.title_size_mobile }} col-span-full">
+                {% comment %} START DIALECT - Display product name in its packaging color 'custom.product_dialect_packaging_color' {% endcomment %}
+                <h1 class="leading-none font-bold {{ block.settings.title_size }} mobile:{{ block.settings.title_size_mobile }} col-span-full" style="color:{{ product.metafields.custom.product_dialect_packaging_color }};">
                   <split-words class="split-words flex flex-wrap" data-animate="fade-up">{{ product.title }}</split-words>
                 </h1>
+                {% comment %} END DIALECT - Display product name in its packaging color 'custom.product_dialect_packaging_color'
+                SAVE
+                <h1 class="leading-none font-bold {{ block.settings.title_size }} mobile:{{ block.settings.title_size_mobile }} col-span-full" style="color:{{ product.metafields.custom.product_dialect_packaging_color }};">
+                  <split-words class="split-words flex flex-wrap" data-animate="fade-up">{{ product.title }}</split-words>
+                </h1>
+               {% endcomment %}
 
                 {%- if block.settings.show_price -%}
                   <div id="Price-{{ section.id }}" class="product__price">
