@@ -388,3 +388,10 @@ Collection page is the page where all products are displayed
 .cust__gender-filter ul li a.link--unisex > span:first-child {
   background-color: darkkhaki;
 }
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PRODUCT PAGE
+Product page is the page where the product is displayed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.product .product__title {
+  display: flex;
+}
