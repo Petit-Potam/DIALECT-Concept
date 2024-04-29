@@ -543,5 +543,37 @@ Product page is the page where the product is displayed
     // Display product title and price in a row on product page
     .product__title{
         display: flex;
+
+        .cust_title-words-count-2{
+
+            .split-words{
+                display: flex;
+                flex-direction: column !important;
+            }
+
+        }
+
+        .cust_title-words-count-3{
+
+            .split-words{
+                display: flex !important;
+                flex-wrap:wrap;
+                
+                .single-word:last-child{
+                    flex: 0 0 100%;
+                }
+            }
+
+        }
+        
+        // Align product title and price vertically centered
+        .product__price{
+            align-self: center;
+        }
+        // Display sale price and compare at price on top of each other
+        .price{
+            display: flex;
+            flex-direction: column;
+        }
     }
 }

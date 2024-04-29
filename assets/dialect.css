@@ -395,3 +395,21 @@ Product page is the page where the product is displayed
 .product .product__title {
   display: flex;
 }
+.product .product__title .cust_title-words-count-2 .split-words {
+  display: flex;
+  flex-direction: column !important;
+}
+.product .product__title .cust_title-words-count-3 .split-words {
+  display: flex !important;
+  flex-wrap: wrap;
+}
+.product .product__title .cust_title-words-count-3 .split-words .single-word:last-child {
+  flex: 0 0 100%;
+}
+.product .product__title .product__price {
+  align-self: center;
+}
+.product .product__title .price {
+  display: flex;
+  flex-direction: column;
+}
