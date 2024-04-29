@@ -121,8 +121,10 @@
             
             {%- when 'title' -%}
               <div class="product__title{% if block.settings.show_price %} with-price{% endif %}" {{ block.shopify_attributes }}>
+                {% comment %} Store each title word in title_parts array {% endcomment %}
+                {% assign cust_title_parts = product.title | escape | split: ' ' %}
                 {% comment %} START DIALECT - Display product name in its packaging color 'custom.product_dialect_packaging_color' {% endcomment %}
-                <h1 class="leading-none font-bold {{ block.settings.title_size }} mobile:{{ block.settings.title_size_mobile }} col-span-full" style="color:{{ product.metafields.custom.product_dialect_packaging_color }};">
+                <h1 class="cust_title-words-count-{{ cust_title_parts.size }} leading-none font-bold {{ block.settings.title_size }} mobile:{{ block.settings.title_size_mobile }} col-span-full" style="color:{{ product.metafields.custom.product_dialect_packaging_color }};">
                   <split-words class="split-words flex flex-wrap" data-animate="fade-up">{{ product.title }}</split-words>
                 </h1>
                 {% comment %} END DIALECT - Display product name in its packaging color 'custom.product_dialect_packaging_color'
