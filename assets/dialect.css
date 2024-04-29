@@ -24,6 +24,22 @@ h6,
 .h4,
 .h5,
 .h6 {
+  font-family: "Sequel45" !important;
+}
+h0 > em.highlighted-text,
+h1 > em.highlighted-text,
+h2 > em.highlighted-text,
+h3 > em.highlighted-text,
+h4 > em.highlighted-text,
+h5 > em.highlighted-text,
+h6 > em.highlighted-text,
+.h0 > em.highlighted-text,
+.h1 > em.highlighted-text,
+.h2 > em.highlighted-text,
+.h3 > em.highlighted-text,
+.h4 > em.highlighted-text,
+.h5 > em.highlighted-text,
+.h6 > em.highlighted-text {
   font-family: "Sequel75" !important;
 }
 /*=============================================
